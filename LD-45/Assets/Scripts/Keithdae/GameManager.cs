@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FightManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     // Singleton
-    public static FightManager _instance;
+    public static GameManager _instance;
     private void Awake()
     {
         if (_instance == null)
@@ -14,14 +14,8 @@ public class FightManager : MonoBehaviour
             Destroy(this);
     }
 
-    public enum MoveType
-    {
-        Attack,
-        Guard,
-        Projectile
-    };
-    
-    public Robot opponent;
+
+    public Robot playerRobot;
 
     // Start is called before the first frame update
     void Start()
@@ -33,10 +27,5 @@ public class FightManager : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void CombatPhase(MoveType playerMove)
-    {
-        //MoveType opponentMove = opponent.ChoseMove();
     }
 }
