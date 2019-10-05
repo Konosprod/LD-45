@@ -38,14 +38,13 @@ public class GameManager : MonoBehaviour
         if(win)
         {
             // You earn the money and reputation from the fight
-            economy.money += fightManager.currentFight.rewardMoney;
-            economy.reputation += fightManager.currentFight.rewardReputation;
-            economy.UpdateInfo();
+            economy.EarnMoney(fightManager.currentFight.rewardMoney);
+            economy.GainReputation(fightManager.currentFight.rewardReputation);
         }
         else
         {
             // You lose reputation because you lost AND YOU ARE TRASH
-            economy.reputation -= fightManager.currentFight.rewardReputation;
+            economy.LoseReputation(fightManager.currentFight.rewardReputation);
         }
     }
 }

@@ -137,7 +137,7 @@ public class FightManager : MonoBehaviour
         }
 
         // Damage calculation
-        float randFactor = Random.Range(0.75f, 1.25f);
+        float randFactor = Random.Range(0.8f, 1.2f);
         int playerDamage = Mathf.FloorToInt(player.dmg * (100f / (100f + opponent.def)) * rpsMultiplier * randFactor);
         int opponentDamage = Mathf.FloorToInt(opponent.dmg * (100f / (100f + player.def)) * opponentRpsMult * randFactor);
 

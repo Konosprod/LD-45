@@ -144,6 +144,30 @@ public class Economy : MonoBehaviour
         UpdateInfo();
     }
 
+
+    // Add or substract money and update the UI accordingly
+    public void EarnMoney(int amount)
+    {
+        money += amount;
+        UpdateInfo();
+    }
+    public void SpendMoney(int amount)
+    {
+        money -= amount;
+        UpdateInfo();
+    }
+    // Same shit for reputation
+    public void GainReputation(int amount)
+    {
+        reputation += amount;
+        UpdateInfo();
+    }
+    public void LoseReputation(int amount)
+    {
+        reputation -= amount;
+        UpdateInfo();
+    }
+
     // Update the UI when you change the money
     public void UpdateInfo()
     {
