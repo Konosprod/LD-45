@@ -22,39 +22,33 @@ public class Economy : MonoBehaviour
 
     public class Loan
     {
-        public int id;             // id of the loan
+        public int id;              // id of the loan
         public int amount;          // How much money you were lent
         public float interestRate;  // How much interest you have to pay
         public int startDate;       // The day you took the loan
         public int endDate;         // The day when you need to settle the loan
-        public int interestFreq;    // How often you need to pay interest (every 2-3-4-etc days)
 
-        public Loan(int amnt, float inter, int start, int end, int freq)
+        public Loan(int amnt, float inter, int start, int end)
         {
             id = Economy.loanId++;
             amount = amnt;
             interestRate = inter;
             startDate = start;
             endDate = end;
-            interestFreq = freq;
         }
 
-        public int CheckInterest()
+        public int GetInterest()
         {
-            int interest = 0;
-
-            if ((Economy.currentDay - startDate) % interestFreq == 0)
-            {
-                interest = Mathf.FloorToInt(amount * interestRate);
-            }
-
-            return interest;
+            return Mathf.FloorToInt(amount * interestRate);
         }
     }
 
     public int money = 0;   // Your money (0 BECAUSE YOU START WITH NOTHING)
     public int reputation = 0;  // Your reputation (0 BECAUSE YOU START WITH NOTHING)
+
     public List<Loan> loans = new List<Loan>(); // Your loans
+    public int totalMoneyBorrowed = 0;
+    public int totalMoneyPaidBack = 0;
 
     public Loan[] offers = new Loan[loanOfferNb];
 
@@ -77,7 +71,7 @@ public class Economy : MonoBehaviour
         // We add the interests of all the loans
         foreach (Loan loan in loans)
         {
-            totalInterest += loan.CheckInterest();
+            totalInterest += loan.GetInterest();
         }
 
         money -= totalInterest;

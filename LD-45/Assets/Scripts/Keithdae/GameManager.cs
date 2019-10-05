@@ -16,16 +16,35 @@ public class GameManager : MonoBehaviour
 
 
     public Robot playerRobot;
+    public Economy economy;
+    public FightManager fightManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        economy = Economy._instance;
+        fightManager = FightManager._instance;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+
+    public void EndFight(bool win)
+    {
+        if(win)
+        {
+            // You earn the money and reputation from the fight
+            economy.money += fightManager.currentFight.rewardMoney;
+            economy.reputation += fightManager.currentFight.rewardReputation;
+        }
+        else
+        {
+            // You lose reputation because you lost AND YOU ARE TRASH
+            economy.reputation -= fightManager.currentFight.rewardReputation;
+        }
     }
 }
