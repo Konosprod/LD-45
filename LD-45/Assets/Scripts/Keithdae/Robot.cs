@@ -18,6 +18,8 @@ public class Robot : MonoBehaviour
         AlternateGP         // guard puis projectile en alternance
     };
 
+    public int maxHp;
+    [HideInInspector()]
     public int hp;
     public int dmg;
     public int def;
@@ -29,7 +31,7 @@ public class Robot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        hp = maxHp;
     }
 
     // Update is called once per frame

@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
 
 
     public Robot playerRobot;
-    public Economy economy;
-    public FightManager fightManager;
+    private Economy economy;
+    private FightManager fightManager;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
             // You earn the money and reputation from the fight
             economy.money += fightManager.currentFight.rewardMoney;
             economy.reputation += fightManager.currentFight.rewardReputation;
+            economy.UpdateInfo();
         }
         else
         {

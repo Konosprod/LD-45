@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Economy : MonoBehaviour
 {
@@ -28,18 +29,28 @@ public class Economy : MonoBehaviour
         public int startDate;       // The day you took the loan
         public int endDate;         // The day when you need to settle the loan
 
-        public Loan(int amnt, float inter, int start, int end)
+        public Loan(int amnt, float inter, int end)
         {
             id = Economy.loanId++;
             amount = amnt;
             interestRate = inter;
-            startDate = start;
+            startDate = currentDay;
             endDate = end;
         }
 
+        // You pay interest everyday, you pay the amount at the end
         public int GetInterest()
         {
-            return Mathf.FloorToInt(amount * interestRate);
+            int interest;
+            if (currentDay < endDate)
+            {
+                interest = Mathf.FloorToInt(amount * interestRate / 100f);
+            }
+            else
+            {
+                interest = amount;
+            }
+            return interest;
         }
     }
 
@@ -57,28 +68,44 @@ public class Economy : MonoBehaviour
 
     public const int bankruptGracePeriod = 5; // You have 5 days to earn money or it's over
 
+    // UI
+    public Text ecoInfo;
+
     // Start is called before the first frame update
     void Start()
     {
 
     }
 
+    // Pay the interests of the day after the fight
     public void NextDay()
     {
         currentDay++;
 
         int totalInterest = 0;
-        // We add the interests of all the loans
+        List<Loan> toDel = new List<Loan>();
+        // We add the interests/amounts of all the loans
         foreach (Loan loan in loans)
         {
             totalInterest += loan.GetInterest();
+            if (loan.endDate == currentDay)
+                toDel.Add(loan);
         }
 
-        money -= totalInterest;
-
-        if(money < 0)
+        foreach (Loan del in toDel)
         {
-            if(!bankrupt)
+            loans.Remove(del);
+            // Debug.Log("Removed loan id=" + del.id);
+        }
+
+        // Debug.Log(totalInterest);
+
+        money -= totalInterest;
+        UpdateInfo();
+
+        if (money < 0)
+        {
+            if (!bankrupt)
             {
                 // This is your first day of being bankrupt, you can't take loans anymore until you go positive again
                 bankrupt = true;
@@ -86,7 +113,7 @@ public class Economy : MonoBehaviour
             }
             else
             {
-                if(currentDay - bankruptStartDate > bankruptGracePeriod)
+                if (currentDay - bankruptStartDate > bankruptGracePeriod)
                 {
                     // You have been bankrupt for 5 days in a row, YOU LOSE
 
@@ -95,7 +122,7 @@ public class Economy : MonoBehaviour
         }
         else
         {
-            if(bankrupt)
+            if (bankrupt)
             {
                 // You are positive again ! Yay
                 bankrupt = false;
@@ -103,8 +130,23 @@ public class Economy : MonoBehaviour
         }
     }
 
+    // Create multiple loan offers of various durations/amounts/interests
     public void CreateOffers()
     {
 
+    }
+
+    // TEST
+    public void TakeLoan()
+    {
+        loans.Add(new Loan(300, 2.5f, currentDay + 15));
+        money += 300;
+        UpdateInfo();
+    }
+
+    // Update the UI when you change the money
+    public void UpdateInfo()
+    {
+        ecoInfo.text = "Money : " + money + '\n' + "Reputation : " + reputation;
     }
 }

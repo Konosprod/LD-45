@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FightManager : MonoBehaviour
 {
@@ -36,17 +37,37 @@ public class FightManager : MonoBehaviour
 
     public Fight currentFight;
     public Robot opponent;
-    public Robot player;
+    private Robot player;
+
+    public Slider playerHealth;
+    public Slider opponentHealth;
 
     // Start is called before the first frame update
     void Start()
     {
         UpdatePlayer();
+
+        // TEST
+        currentFight = new Fight(250, 7);
     }
 
     public void UpdatePlayer()
     {
         player = GameManager._instance.playerRobot;
+    }
+
+
+    public void UseAttack()
+    {
+        CombatPhase(MoveType.Attack);
+    }
+    public void UseGuard()
+    {
+        CombatPhase(MoveType.Guard);
+    }
+    public void UseProjectile()
+    {
+        CombatPhase(MoveType.Projectile);
     }
 
     public void CombatPhase(MoveType playerMove)
@@ -116,8 +137,12 @@ public class FightManager : MonoBehaviour
         }
 
         // Damage calculation
-        int playerDamage = Mathf.FloorToInt(player.dmg * (100 / (100 + opponent.def)) * rpsMultiplier);
-        int opponentDamage = Mathf.FloorToInt(opponent.dmg * (100 / (100 + player.def)) * opponentRpsMult);
+        float randFactor = Random.Range(0.75f, 1.25f);
+        int playerDamage = Mathf.FloorToInt(player.dmg * (100f / (100f + opponent.def)) * rpsMultiplier * randFactor);
+        int opponentDamage = Mathf.FloorToInt(opponent.dmg * (100f / (100f + player.def)) * opponentRpsMult * randFactor);
+
+        Debug.Log("Opponent move : " + opponentMove);
+        Debug.Log("Player damage = " + playerDamage + ", opponent damage = " + opponentDamage);
 
         // Deal the damage
         int playerHP = player.hp - opponentDamage;
@@ -161,5 +186,16 @@ public class FightManager : MonoBehaviour
             player.hp -= opponentDamage;
             opponent.hp -= playerDamage;
         }
+
+        UpdateHealthBars();
+    }
+
+
+    public void UpdateHealthBars()
+    {
+        playerHealth.maxValue = player.maxHp;
+        playerHealth.value = player.hp;
+        opponentHealth.maxValue = opponent.maxHp;
+        opponentHealth.value = opponent.hp;
     }
 }
