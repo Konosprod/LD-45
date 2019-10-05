@@ -33,9 +33,9 @@ public class UpgradeManager : MonoBehaviour
         obsUpgradeLevel = 0;
     }
 
-    public int GetUpgradeCost(int level) // 100 => 150 => 300 => 550 => 900 => 1350 
+    public int GetUpgradeCost(int level) // 100 => 150 => 250 => 400 => 600 => 850 => 1150
     {
-        return 100 + 50 * level * level;
+        return 100 + 50 * level * (level + 1) / 2;
     }
 
     public bool CanAffordUpgrade(int level)
@@ -103,6 +103,7 @@ public class UpgradeManager : MonoBehaviour
         {
             Economy._instance.SpendMoney(GetUpgradeCost(obsUpgradeLevel));
             obsUpgradeLevel++;
+            GameManager._instance.observation += 3;
         }
         else
         {

@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     private Economy economy;
     private FightManager fightManager;
 
+    public int observation = 0; // Character's observation stat
+
     // Start is called before the first frame update
     void Start()
     {
