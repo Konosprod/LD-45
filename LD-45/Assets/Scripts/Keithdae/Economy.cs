@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Economy : MonoBehaviour
 {
@@ -18,7 +19,9 @@ public class Economy : MonoBehaviour
 
     public static int currentDay = 1;
 
+    [HideInInspector]
     public static int loanId = 0; // internal id for loans to be able to search/remove them from the list
+
     public const int loanOfferNb = 3;   // Number of loan you are offered each day
 
     public class Loan
@@ -52,6 +55,30 @@ public class Economy : MonoBehaviour
             }
             return interest;
         }
+
+        // Next day interest for forecast
+        public int GetNextDayInterest()
+        {
+            int interest;
+            if (currentDay + 1 < endDate)
+            {
+                interest = Mathf.FloorToInt(amount * interestRate / 100f);
+            }
+            else
+            {
+                interest = amount;
+            }
+            return interest;
+        }
+
+        // Remaining debt (all interests + payment)
+        public int GetRemainingDebt()
+        {
+            int debt = 0;
+            debt += (endDate - currentDay - 1) * Mathf.FloorToInt(amount * interestRate / 100f); // Remaining interest that you will pay (-1 because no interest on last day)
+            debt += amount;
+            return debt;
+        }
     }
 
     public int money = 0;   // Your money (0 BECAUSE YOU START WITH NOTHING)
@@ -69,18 +96,48 @@ public class Economy : MonoBehaviour
     public const int bankruptGracePeriod = 5; // You have 5 days to earn money or it's over
 
     // UI
-    public Text ecoInfo;
+    [Header("UI")]
+    public TextMeshProUGUI moneyText;
+    public TextMeshProUGUI reputationText;
+    public TextMeshProUGUI dayText;
+    public Text nextDayPaymentText;
+
+
+    [Header("Loan offers")]
+    [Header("Loan1")]
+    public TextMeshProUGUI loanOffer1AmountText;
+    public TextMeshProUGUI loanOffer1RateText;
+    public TextMeshProUGUI loanOffer1EndDateText;
+    [Header("Loan2")]
+    public TextMeshProUGUI loanOffer2AmountText;
+    public TextMeshProUGUI loanOffer2RateText;
+    public TextMeshProUGUI loanOffer2EndDateText;
+    [Header("Loan3")]
+    public TextMeshProUGUI loanOffer3AmountText;
+    public TextMeshProUGUI loanOffer3RateText;
+    public TextMeshProUGUI loanOffer3EndDateText;
+
 
     // Start is called before the first frame update
     void Start()
     {
-
+        // UI setup for preparation phase
+        UpdateDayText();
+        UpdateMoneyText();
+        UpdateReputationText();
+        UpdateNextDayInterest();
+        // Create the first loan offers
+        CreateOffers();
+        UpdateOffers();
     }
 
     // Pay the interests of the day after the fight
     public void NextDay()
     {
         currentDay++;
+        UpdateDayText();
+        CreateOffers();
+        UpdateOffers();
 
         int totalInterest = 0;
         List<Loan> toDel = new List<Loan>();
@@ -99,9 +156,9 @@ public class Economy : MonoBehaviour
         }
 
         // Debug.Log(totalInterest);
-
-        money -= totalInterest;
-        UpdateInfo();
+        totalMoneyPaidBack += totalInterest;
+        UpdateMoneyPaidBackText();
+        SpendMoney(totalInterest);
 
         if (money < 0)
         {
@@ -151,16 +208,17 @@ public class Economy : MonoBehaviour
         // 3rd loan : long-duration (small amount, average interest, long duration)
         amount = Mathf.CeilToInt(Random.Range(250, 425) * repBonus);
         interest = Random.Range(2f, 4f) / repBonus;
-        duration = Mathf.CeilToInt(Random.Range(16, 25) * 3f / interest);
+        duration = Mathf.CeilToInt(Random.Range(20, 30) * 3f / interest);
         offers[2] = new Loan(amount, interest, currentDay + duration);
     }
 
-    // TEST
-    public void TakeLoan()
+
+    public void TakeLoanOffer(int offer)
     {
-        loans.Add(new Loan(300, 2.5f, currentDay + 15));
-        money += 300;
-        UpdateInfo();
+        loans.Add(offers[offer]);
+        EarnMoney(offers[offer].amount);
+        totalMoneyBorrowed += offers[offer].amount;
+        UpdateMoneyBorrowedText();
     }
 
 
@@ -168,28 +226,75 @@ public class Economy : MonoBehaviour
     public void EarnMoney(int amount)
     {
         money += amount;
-        UpdateInfo();
+        UpdateMoneyText();
+        UpdateNextDayInterest(); // Not always usefull
     }
     public void SpendMoney(int amount)
     {
         money -= amount;
-        UpdateInfo();
+        UpdateMoneyText();
+        UpdateNextDayInterest(); // Not always usefull
     }
     // Same shit for reputation
     public void GainReputation(int amount)
     {
         reputation += amount;
-        UpdateInfo();
+        UpdateReputationText();
     }
     public void LoseReputation(int amount)
     {
         reputation -= amount;
-        UpdateInfo();
+        UpdateReputationText();
     }
 
     // Update the UI when you change the money
-    public void UpdateInfo()
+    public void UpdateMoneyText()
     {
-        ecoInfo.text = "Money : " + money + '\n' + "Reputation : " + reputation;
+        moneyText.text = money + " q";
+    }
+    public void UpdateReputationText()
+    {
+        reputationText.text = "REP : " + reputation;
+    }
+    public void UpdateDayText()
+    {
+        dayText.text = "Day " + currentDay;
+    }
+
+    public void UpdateNextDayInterest()
+    {
+        int totalInterest = 0;
+        // We add the interests/amounts of all the loans
+        foreach (Loan loan in loans)
+        {
+            totalInterest += loan.GetNextDayInterest();
+        }
+
+        nextDayPaymentText.text = totalInterest + " q";
+    }
+
+    public void UpdateOffers()
+    {
+        loanOffer1AmountText.text = "+ " + offers[0].amount + " q";
+        loanOffer1RateText.text = offers[0].interestRate.ToString("F1") + '%';
+        loanOffer1EndDateText.text = "Lasts " + (offers[0].endDate - currentDay) + " days";
+
+        loanOffer2AmountText.text = "+ " + offers[1].amount + " q";
+        loanOffer2RateText.text = offers[1].interestRate.ToString("F1") + '%';
+        loanOffer2EndDateText.text = "Lasts " + (offers[1].endDate - currentDay) + " days";
+
+        loanOffer3AmountText.text = "+ " + offers[2].amount + " q";
+        loanOffer3RateText.text = offers[2].interestRate.ToString("F1") + '%';
+        loanOffer3EndDateText.text = "Lasts " + (offers[2].endDate - currentDay) + " days";
+    }
+
+    public void UpdateMoneyPaidBackText()
+    {
+
+    }
+
+    public void UpdateMoneyBorrowedText()
+    {
+
     }
 }

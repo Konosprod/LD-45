@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public int observation = 0; // Character's observation stat
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void EndFight(bool win)
     {
+        UIManager._instance.ResetPreparationUI();
         if(win)
         {
             // You earn the money and reputation from the fight

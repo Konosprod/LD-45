@@ -6,6 +6,17 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
+    // Singleton
+    public static UIManager _instance;
+    private void Awake()
+    {
+        if (_instance == null)
+            _instance = this;
+        else
+            Destroy(this);
+    }
+
+
     [Header("Main panel")]
     public Image moneyButton;
     public Image robotButton;
@@ -60,13 +71,15 @@ public class UIManager : MonoBehaviour
     public Image loanBackground2;
     public Image loanBackground3;
 
-    public TextMeshProUGUI LoanText1;
-    public TextMeshProUGUI LoanText2;
-    public TextMeshProUGUI LoanText3;
+    public TextMeshProUGUI loanText1;
+    public TextMeshProUGUI loanText2;
+    public TextMeshProUGUI loanText3;
 
     public Color loanBackgroundHighlightedColor;
+    private Color loanBackgroundBaseColor;
 
     public Color loanTextHighlightedColor;
+    private Color loanTextBaseColor;
 
 
 
@@ -89,15 +102,27 @@ public class UIManager : MonoBehaviour
 
         // Setup for fight selection
         challengeBackgroundBaseColor = challengeBackground1.color;
-
         challengeTextBaseColor = challengeText1.color;
 
+        // Setup for loan selection
+        loanBackgroundBaseColor = loanBackground1.color;
+        loanTextBaseColor = loanText1.color;
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+
+    // Reset the UI of preparation phase
+    public void ResetPreparationUI()
+    {
+        MoneyButtonClick();
+        RobotStatsButtonClick();
+        ResetFightUI();
+        ResetLoanUI();
     }
 
     // Main panel functions
@@ -201,21 +226,56 @@ public class UIManager : MonoBehaviour
         selectedFight = 2;
     }
 
+    public void ResetFightUI()
+    {
+        challengeBackground1.color = challengeBackgroundBaseColor;
+        challengeBackground2.color = challengeBackgroundBaseColor;
+        challengeBackground3.color = challengeBackgroundBaseColor;
+
+        challengeText1.color = challengeTextBaseColor;
+        challengeText2.color = challengeTextBaseColor;
+        challengeText3.color = challengeTextBaseColor;
+
+        selectedFight = -1;
+    }
+
     // Loan click functions
     public void Loan1Click()
     {
         loanBackground1.color = loanBackgroundHighlightedColor;
-        LoanText1.color = loanTextHighlightedColor;
+        loanText1.color = loanTextHighlightedColor;
+        loanText1.text = "Great deal !";
+
+        Economy._instance.TakeLoanOffer(0);
     }
     public void Loan2Click()
     {
         loanBackground2.color = loanBackgroundHighlightedColor;
-        LoanText2.color = loanTextHighlightedColor;
+        loanText2.color = loanTextHighlightedColor;
+        loanText2.text = "Great deal !";
+
+        Economy._instance.TakeLoanOffer(1);
     }
     public void Loan3Click()
     {
         loanBackground3.color = loanBackgroundHighlightedColor;
-        LoanText3.color = loanTextHighlightedColor;
+        loanText3.color = loanTextHighlightedColor;
+        loanText3.text = "Great deal !";
+
+        Economy._instance.TakeLoanOffer(2);
+    }
+
+    public void ResetLoanUI()
+    {
+        loanBackground1.color = loanBackgroundBaseColor;
+        loanText1.color = loanTextBaseColor;
+        loanText1.text = "Take";
+        loanBackground2.color = loanBackgroundBaseColor;
+        loanText2.color = loanTextBaseColor;
+        loanText2.text = "Take";
+        loanBackground2.color = loanBackgroundBaseColor;
+        loanText2.color = loanTextBaseColor;
+        loanText2.text = "Take";
     }
 
 }
