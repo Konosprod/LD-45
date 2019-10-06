@@ -133,7 +133,26 @@ public class Economy : MonoBehaviour
     // Create multiple loan offers of various durations/amounts/interests
     public void CreateOffers()
     {
-
+        int amount;
+        float interest;
+        int duration;
+        // Reputation bonus : 1 + Sqrt(reputation)% amount increased / interest decreased
+        float repBonus = 1f + (Mathf.Sqrt(reputation) / 100f);
+        // 1st loan : balanced (average amount, interest and duration)
+        amount = Mathf.CeilToInt(Random.Range(400, 600) * repBonus);
+        interest = Random.Range(3f, 7f) / repBonus;
+        duration = Mathf.CeilToInt(Random.Range(8, 13) * 5f / interest);
+        offers[0] = new Loan(amount, interest, currentDay + duration);
+        // 2nd loan : high-interest (high amount, interest, short duration)
+        amount = Mathf.CeilToInt(Random.Range(900, 1300) * repBonus);
+        interest = Random.Range(8f, 20f) / repBonus;
+        duration = Mathf.CeilToInt(Random.Range(4, 8) * 14f / interest);
+        offers[1] = new Loan(amount, interest, currentDay + duration);
+        // 3rd loan : long-duration (small amount, average interest, long duration)
+        amount = Mathf.CeilToInt(Random.Range(250, 425) * repBonus);
+        interest = Random.Range(2f, 4f) / repBonus;
+        duration = Mathf.CeilToInt(Random.Range(16, 25) * 3f / interest);
+        offers[2] = new Loan(amount, interest, currentDay + duration);
     }
 
     // TEST
