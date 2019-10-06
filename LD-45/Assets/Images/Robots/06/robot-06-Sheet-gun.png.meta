@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 240422a238a9cb547866611aad7ada1b
+guid: 8cbff5c6335e01343acecb29b3963f40
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5666161106109655462
-    second: robot-01-Sheet-hat_0
+      213: 7710654900646084713
+    second: robot-06-Sheet-gun_0
   - first:
-      213: -6800464185154540777
-    second: robot-01-Sheet-hat_1
+      213: -5968524657673935328
+    second: robot-06-Sheet-gun_1
+  - first:
+      213: 1488594161488701166
+    second: robot-06-Sheet-gun_2
+  - first:
+      213: 2665513025905592692
+    second: robot-06-Sheet-gun_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -92,7 +98,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: robot-01-Sheet-hat_0
+      name: robot-06-Sheet-gun_0
       rect:
         serializedVersion: 2
         x: 0
@@ -106,14 +112,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 152054a7f93e06f489df4ea515a96e14
-      internalID: 5666161106109655462
+      spriteID: 4c570e0b3d33319438a0819cee61a649
+      internalID: 7710654900646084713
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: robot-01-Sheet-hat_1
+      name: robot-06-Sheet-gun_1
       rect:
         serializedVersion: 2
         x: 320
@@ -127,8 +133,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a307c394963968408651b99b434abaf
-      internalID: -6800464185154540777
+      spriteID: 60a6d87fd20105943b030007bb6f2a76
+      internalID: -5968524657673935328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot-06-Sheet-gun_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc181d6a18954e140afd5f14922c64e8
+      internalID: 1488594161488701166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot-06-Sheet-gun_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91f1ebc0f0f193343ba22c4836439e94
+      internalID: 2665513025905592692
       vertices: []
       indices: 
       edges: []

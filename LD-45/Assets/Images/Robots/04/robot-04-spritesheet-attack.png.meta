@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 240422a238a9cb547866611aad7ada1b
+guid: d3f9dc79302a2c84b82582c8ccc33185
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5666161106109655462
-    second: robot-01-Sheet-hat_0
+      213: -2214752197791603487
+    second: robot-04-spritesheet-attack_0
   - first:
-      213: -6800464185154540777
-    second: robot-01-Sheet-hat_1
+      213: 511315834568259049
+    second: robot-04-spritesheet-attack_1
+  - first:
+      213: 3038457358905541510
+    second: robot-04-spritesheet-attack_2
+  - first:
+      213: 6368540627345273750
+    second: robot-04-spritesheet-attack_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -92,7 +98,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: robot-01-Sheet-hat_0
+      name: robot-04-spritesheet-attack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -106,14 +112,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 152054a7f93e06f489df4ea515a96e14
-      internalID: 5666161106109655462
+      spriteID: 0ac82941eaecd6e40b30d7706ecb2cbb
+      internalID: -2214752197791603487
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: robot-01-Sheet-hat_1
+      name: robot-04-spritesheet-attack_1
       rect:
         serializedVersion: 2
         x: 320
@@ -127,8 +133,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a307c394963968408651b99b434abaf
-      internalID: -6800464185154540777
+      spriteID: bd904581e7b393d45ae2872794511d65
+      internalID: 511315834568259049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot-04-spritesheet-attack_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e379be0ec8f8e2044855c03dad411d98
+      internalID: 3038457358905541510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot-04-spritesheet-attack_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fb85cf3eeeca1341b2c7f60cac99110
+      internalID: 6368540627345273750
       vertices: []
       indices: 
       edges: []

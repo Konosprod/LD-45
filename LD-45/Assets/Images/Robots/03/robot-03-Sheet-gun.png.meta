@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 240422a238a9cb547866611aad7ada1b
+guid: ddb044dada60e6f4ca14bc6a9b9e7226
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5666161106109655462
-    second: robot-01-Sheet-hat_0
+      213: -8308916549212355152
+    second: robot-03-Sheet-gun_0
   - first:
-      213: -6800464185154540777
-    second: robot-01-Sheet-hat_1
+      213: 5583798480644210732
+    second: robot-03-Sheet-gun_1
+  - first:
+      213: 7481299722145669748
+    second: robot-03-Sheet-gun_2
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -92,7 +95,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: robot-01-Sheet-hat_0
+      name: robot-03-Sheet-gun_0
       rect:
         serializedVersion: 2
         x: 0
@@ -106,14 +109,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 152054a7f93e06f489df4ea515a96e14
-      internalID: 5666161106109655462
+      spriteID: c3e2b7ef8135a8548ab6e83abc3785b6
+      internalID: -8308916549212355152
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: robot-01-Sheet-hat_1
+      name: robot-03-Sheet-gun_1
       rect:
         serializedVersion: 2
         x: 320
@@ -127,8 +130,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a307c394963968408651b99b434abaf
-      internalID: -6800464185154540777
+      spriteID: 82c1357faa6a9fe42a81ad6f6f93e844
+      internalID: 5583798480644210732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot-03-Sheet-gun_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c875f6665866e849b3f0fad215d8552
+      internalID: 7481299722145669748
       vertices: []
       indices: 
       edges: []

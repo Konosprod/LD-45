@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 240422a238a9cb547866611aad7ada1b
+guid: 593d7b7ab4b4dc04eab69ebf74a1cb24
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5666161106109655462
-    second: robot-01-Sheet-hat_0
+      213: 4865011514894612171
+    second: robot-06-Sheet-hat_0
   - first:
-      213: -6800464185154540777
-    second: robot-01-Sheet-hat_1
+      213: -5821547721822199357
+    second: robot-06-Sheet-hat_1
+  - first:
+      213: 5983602716292286777
+    second: robot-06-Sheet-hat_2
+  - first:
+      213: -5006009317277295076
+    second: robot-06-Sheet-hat_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -92,7 +98,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: robot-01-Sheet-hat_0
+      name: robot-06-Sheet-hat_0
       rect:
         serializedVersion: 2
         x: 0
@@ -106,14 +112,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 152054a7f93e06f489df4ea515a96e14
-      internalID: 5666161106109655462
+      spriteID: 8c8a2665febc3294aac4713cbcf37b75
+      internalID: 4865011514894612171
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: robot-01-Sheet-hat_1
+      name: robot-06-Sheet-hat_1
       rect:
         serializedVersion: 2
         x: 320
@@ -127,8 +133,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a307c394963968408651b99b434abaf
-      internalID: -6800464185154540777
+      spriteID: e58475e49fb650b409be8a2e0879d694
+      internalID: -5821547721822199357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot-06-Sheet-hat_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e829d88245fba1a44b20cda7b8dd0ac6
+      internalID: 5983602716292286777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot-06-Sheet-hat_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68620b3f621d35148a3e2198769954ed
+      internalID: -5006009317277295076
       vertices: []
       indices: 
       edges: []

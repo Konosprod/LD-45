@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 240422a238a9cb547866611aad7ada1b
+guid: 5ce669bea64d13749834f685e2e5d46b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5666161106109655462
-    second: robot-01-Sheet-hat_0
+      213: 7873824454703464445
+    second: robot-02-rage_0
   - first:
-      213: -6800464185154540777
-    second: robot-01-Sheet-hat_1
+      213: 3477406314352792696
+    second: robot-02-rage_1
+  - first:
+      213: 380637462446201928
+    second: robot-02-rage_2
+  - first:
+      213: -4577373779265534110
+    second: robot-02-rage_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -92,7 +98,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: robot-01-Sheet-hat_0
+      name: robot-02-rage_0
       rect:
         serializedVersion: 2
         x: 0
@@ -106,14 +112,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 152054a7f93e06f489df4ea515a96e14
-      internalID: 5666161106109655462
+      spriteID: 22c182538aa30ab4995f9842f0e53244
+      internalID: 7873824454703464445
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: robot-01-Sheet-hat_1
+      name: robot-02-rage_1
       rect:
         serializedVersion: 2
         x: 320
@@ -127,8 +133,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a307c394963968408651b99b434abaf
-      internalID: -6800464185154540777
+      spriteID: 06fe2d3f3af588347adf655c2e25d3f3
+      internalID: 3477406314352792696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot-02-rage_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51f1ae1fe4a759e428e959d661d651de
+      internalID: 380637462446201928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: robot-02-rage_3
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 320
+        height: 320
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f82210d59e9627147ac5c89056cd2a89
+      internalID: -4577373779265534110
       vertices: []
       indices: 
       edges: []
