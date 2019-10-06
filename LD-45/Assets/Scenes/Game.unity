@@ -7218,7 +7218,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &745818862
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12491,7 +12491,6 @@ MonoBehaviour:
   moneyText: {fileID: 977624408}
   reputationText: {fileID: 151164560}
   dayText: {fileID: 1890689870}
-  nextDayPaymentText: {fileID: 960334132}
   loanOffer1AmountText: {fileID: 1176964422}
   loanOffer1RateText: {fileID: 1763267416}
   loanOffer1EndDateText: {fileID: 1189756122}
@@ -12501,6 +12500,10 @@ MonoBehaviour:
   loanOffer3AmountText: {fileID: 1872474227}
   loanOffer3RateText: {fileID: 86164619}
   loanOffer3EndDateText: {fileID: 573723045}
+  nextDayPaymentText: {fileID: 960334132}
+  moneyPaidBackText: {fileID: 2064975271}
+  remainingDebtText: {fileID: 1202873476}
+  debtSlider: {fileID: 202545370}
 --- !u!1 &1245684066
 GameObject:
   m_ObjectHideFlags: 0
