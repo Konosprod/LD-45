@@ -407,7 +407,7 @@ Animator:
   m_GameObject: {fileID: 939982483}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f613fc611bbd54c4aa63cdc92c42bc73, type: 2}
+  m_Controller: {fileID: 9100000, guid: dfb2df35188db4347a0b02418eb3f9f2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -491,6 +491,7 @@ GameObject:
   - component: {fileID: 1657949435}
   - component: {fileID: 1657949434}
   - component: {fileID: 1657949433}
+  - component: {fileID: 1657949436}
   m_Layer: 0
   m_Name: PlayerRobot
   m_TagString: Untagged
@@ -508,7 +509,7 @@ Animator:
   m_GameObject: {fileID: 1657949432}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 50b3030b15dd48d48a70cc23013017fb, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5657e215b3bca98459beb6c12f244df9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -581,6 +582,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1657949436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657949432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57c64f9de54e66a4c84672c5d81fa377, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1657949433}
+  minTime: 0
+  maxTime: 1
+  speed: 1
 --- !u!1 &1662850649
 GameObject:
   m_ObjectHideFlags: 0
