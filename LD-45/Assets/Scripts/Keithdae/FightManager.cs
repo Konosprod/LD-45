@@ -39,8 +39,8 @@ public class FightManager : MonoBehaviour
     public Robot opponent;
     private Robot player;
 
-    public Slider playerHealth;
-    public Slider opponentHealth;
+    public HealthBar playerHealth;
+    public HealthBar opponentHealth;
 
     // Start is called before the first frame update
     void Start()
@@ -193,9 +193,7 @@ public class FightManager : MonoBehaviour
 
     public void UpdateHealthBars()
     {
-        playerHealth.maxValue = player.maxHp;
-        playerHealth.value = player.hp;
-        opponentHealth.maxValue = opponent.maxHp;
-        opponentHealth.value = opponent.hp;
+        playerHealth.UpdateHealthBar((float)player.hp / player.maxHp);
+        opponentHealth.UpdateHealthBar((float)opponent.hp / opponent.maxHp);
     }
 }
