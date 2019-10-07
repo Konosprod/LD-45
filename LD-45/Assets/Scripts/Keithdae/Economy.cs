@@ -85,7 +85,7 @@ public class Economy : MonoBehaviour
     public int reputation = 0;  // Your reputation (0 BECAUSE YOU START WITH NOTHING)
 
     public List<Loan> loans = new List<Loan>(); // Your loans
-    public int totalMoneyBorrowed = 0;
+    public int totalMoneyBorrowed = 0; // For the slider
     public int totalMoneyPaidBack = 0;
 
     public Loan[] offers = new Loan[loanOfferNb];
@@ -100,7 +100,6 @@ public class Economy : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public TextMeshProUGUI reputationText;
     public TextMeshProUGUI dayText;
-    public Text nextDayPaymentText;
 
 
     [Header("Loan offers")]
@@ -117,6 +116,12 @@ public class Economy : MonoBehaviour
     public TextMeshProUGUI loanOffer3RateText;
     public TextMeshProUGUI loanOffer3EndDateText;
 
+    [Header("Debt")]
+    public Text nextDayPaymentText;
+    public Text moneyPaidBackText;
+    public Text remainingDebtText;
+    public Slider debtSlider;
+
 
     // Start is called before the first frame update
     void Start()
@@ -129,6 +134,10 @@ public class Economy : MonoBehaviour
         // Create the first loan offers
         CreateOffers();
         UpdateOffers();
+
+        UpdateMoneyPaidBackText();
+        UpdateRemainingDebtText();
+        UpdateMoneyBorrowedSlider();
     }
 
     // Pay the interests of the day after the fight
@@ -158,6 +167,7 @@ public class Economy : MonoBehaviour
         // Debug.Log(totalInterest);
         totalMoneyPaidBack += totalInterest;
         UpdateMoneyPaidBackText();
+        UpdateMoneyBorrowedSlider();
         SpendMoney(totalInterest);
 
         if (money < 0)
@@ -193,18 +203,22 @@ public class Economy : MonoBehaviour
         int amount;
         float interest;
         int duration;
+
         // Reputation bonus : 1 + Sqrt(reputation)% amount increased / interest decreased
         float repBonus = 1f + (Mathf.Sqrt(reputation) / 100f);
+
         // 1st loan : balanced (average amount, interest and duration)
         amount = Mathf.CeilToInt(Random.Range(400, 600) * repBonus);
         interest = Random.Range(3f, 7f) / repBonus;
         duration = Mathf.CeilToInt(Random.Range(8, 13) * 5f / interest);
         offers[0] = new Loan(amount, interest, currentDay + duration);
+
         // 2nd loan : high-interest (high amount, interest, short duration)
         amount = Mathf.CeilToInt(Random.Range(900, 1300) * repBonus);
         interest = Random.Range(8f, 20f) / repBonus;
         duration = Mathf.CeilToInt(Random.Range(4, 8) * 14f / interest);
         offers[1] = new Loan(amount, interest, currentDay + duration);
+
         // 3rd loan : long-duration (small amount, average interest, long duration)
         amount = Mathf.CeilToInt(Random.Range(250, 425) * repBonus);
         interest = Random.Range(2f, 4f) / repBonus;
@@ -218,7 +232,8 @@ public class Economy : MonoBehaviour
         loans.Add(offers[offer]);
         EarnMoney(offers[offer].amount);
         totalMoneyBorrowed += offers[offer].amount;
-        UpdateMoneyBorrowedText();
+        UpdateMoneyBorrowedSlider();
+        UpdateRemainingDebtText();
     }
 
 
@@ -290,11 +305,23 @@ public class Economy : MonoBehaviour
 
     public void UpdateMoneyPaidBackText()
     {
-
+        moneyPaidBackText.text = totalMoneyPaidBack + " q";
     }
 
-    public void UpdateMoneyBorrowedText()
+    public void UpdateMoneyBorrowedSlider()
     {
+        float ratio = totalMoneyPaidBack / (totalMoneyBorrowed != 0f ? totalMoneyBorrowed : 1f);
+        debtSlider.value = ratio;
+    }
 
+    public void UpdateRemainingDebtText()
+    {
+        int remainingDebt = 0;
+        foreach (Loan loan in loans)
+        {
+            remainingDebt += loan.GetRemainingDebt();
+        }
+
+        remainingDebtText.text = remainingDebt + " q";
     }
 }
