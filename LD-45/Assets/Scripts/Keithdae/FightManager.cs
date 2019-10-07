@@ -75,6 +75,15 @@ public class FightManager : MonoBehaviour
     public TextMeshProUGUI fight3BehaviourTypeText;
 
 
+    [Header("Fight UI proba")]
+    public Sprite atkSprite;
+    public Sprite guardSprite;
+    public Sprite projSprite;
+
+    public Image probaImage;
+
+    public Text probaText;
+
 
     // Start is called before the first frame update
     void Start()
@@ -400,5 +409,20 @@ public class FightManager : MonoBehaviour
         fight1BehaviourTypeText.text = GetBehaviourDesc(fightOffers[0].opponent.behaviourType);
         fight2BehaviourTypeText.text = GetBehaviourDesc(fightOffers[1].opponent.behaviourType);
         fight3BehaviourTypeText.text = GetBehaviourDesc(fightOffers[2].opponent.behaviourType);
+    }
+
+    public void UpdateProbaUI()
+    {
+        int hpm = opponent.GetHighestProbaMove();
+        float highestProba = opponent.GetHighestPercent();
+
+        probaImage.sprite = hpm == 0 ? atkSprite : (hpm == 1 ? guardSprite : projSprite);
+
+        float obsMult = 1 + (GameManager._instance.observation * 5f / 100);
+        float randDecal = Random.Range(-5f / obsMult, 5f / obsMult);
+        float lowBoundary = highestProba + randDecal + Random.Range(-20f / obsMult, -10f / obsMult);
+        float highBoundary = highestProba + randDecal + Random.Range(10f / obsMult, 20f / obsMult);
+
+        probaText.text = lowBoundary.ToString("F1") + "%-" + highBoundary.ToString("F1") + "%";
     }
 }
