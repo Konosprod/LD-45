@@ -17,6 +17,11 @@ public class MainMenu : MonoBehaviour {
 		
 	}
 
+    public void Tuto()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Tutorial");
+    }
+
     public void PlayGame()
     {
         this.gameObject.SetActive(false);

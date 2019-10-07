@@ -163,6 +163,7 @@ public class UIManager : MonoBehaviour
     // Reset the UI of preparation phase
     public void ResetPreparationUI()
     {
+        SoundManager._instance.PlayMusic(SoundType.Prep);
         MoneyButtonClick();
         RobotStatsButtonClick();
         ResetFightUI();

@@ -88,6 +88,8 @@ public class GameManager : MonoBehaviour
 
     public void StartFight()
     {
+        SoundManager._instance.PlayMusic(SoundType.Fight);
+
         fightManager.opponent = fightManager.fightOffers[UIManager.selectedFight].opponent;
         fightManager.currentFight = fightManager.fightOffers[UIManager.selectedFight];
 
