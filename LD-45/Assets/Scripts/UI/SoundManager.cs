@@ -53,7 +53,6 @@ public class SoundManager : MonoBehaviour
 
         foreach (SoundType t in Enum.GetValues(typeof(SoundType)))
         {
-            print(t.ToString());
             if (t != SoundType.None)
                 audioClips[t] = Resources.Load<AudioClip>("Sounds/" + t.ToString());
         }

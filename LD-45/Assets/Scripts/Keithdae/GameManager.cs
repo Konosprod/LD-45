@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
 
         fightManager.ResetHealthBars();
         fightManager.UpdateProbaUI();
+        fightManager.ResetAction();
 
         preparationPhaseUI.SetActive(false);
         preparationBackground.SetActive(false);
