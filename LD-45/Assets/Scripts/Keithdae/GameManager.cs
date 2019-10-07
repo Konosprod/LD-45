@@ -132,6 +132,12 @@ public class GameManager : MonoBehaviour
     {
         RobotModel = s;
         UpdateRobotPreview();
+        string model = RobotModel.Substring(RobotModel.Length - 2);
+        SpriteRenderer r = playerRobot.GetComponent<SpriteRenderer>();
+        r.sprite = Resources.Load<Sprite>(RobotModel);
+        Animator a = playerRobot.GetComponent<Animator>();
+        print(model + "/" + RobotModel + "-idle");
+        a.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>(model + "/" + RobotModel + "-idle");
     }
 
     public void UpdateRobotPreview()

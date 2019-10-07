@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Robot-01-idle
+  m_Name: robot-01-idle
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
