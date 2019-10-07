@@ -49,6 +49,15 @@ public class UpgradeManager : MonoBehaviour
     public TextMeshProUGUI upgradeOBSLevelText;
 
 
+    [Header("Special upgrades")]
+    public static int specialUpgradeCost = 1500;
+
+    [HideInInspector]
+    public bool specialUpgradesUnlocked = false;
+
+    public Button specialUpgradeButton;
+    public TextMeshProUGUI specialUpgradeButtonText;
+
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +81,10 @@ public class UpgradeManager : MonoBehaviour
     {
         return GetUpgradeCost(level) <= Economy._instance.money;
     }
-
+    public bool CanAffordSpecialUpgrade()
+    {
+        return specialUpgradeCost <= Economy._instance.money;
+    }
 
     // Buy upgrade functions for stats
     public void BuyHpUpgrade()
@@ -153,6 +165,22 @@ public class UpgradeManager : MonoBehaviour
     }
 
 
+    public void BuySpecialUpgrade()
+    {
+        if(CanAffordSpecialUpgrade())
+        {
+            Economy._instance.SpendMoney(specialUpgradeCost);
+            specialUpgradesUnlocked = true;
+            specialUpgradeButtonText.text = "UNLOCKED";
+            CheckAffordableUpgrade();
+        }
+        else
+        {
+            Debug.LogError("Cannot afford upgrade");
+        }
+    }
+
+    // Updates the cost/level of upgrade and make the button interactable if you have enough money
     public void CheckAffordableUpgrade()
     {
         // Robot
@@ -177,5 +205,8 @@ public class UpgradeManager : MonoBehaviour
         upgradeOBSCostText.text = "Cost : " + GetUpgradeCost(obsUpgradeLevel) + " q";
 
         upgradeOBSLevelText.text = "Level " + obsUpgradeLevel;
+
+        // Special upgrade
+        specialUpgradeButton.interactable = CanAffordSpecialUpgrade();
     }
 }
