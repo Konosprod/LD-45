@@ -79,6 +79,38 @@ public class Economy : MonoBehaviour
             debt += amount;
             return debt;
         }
+
+
+        public static int CompareLoanByInterestRate(Loan x, Loan y)
+        {
+            if (x.interestRate > y.interestRate)
+                return -1;
+            else if (y.interestRate > x.interestRate)
+                return 1;
+            else
+                return 0;
+        }
+
+        public static int CompareLoanByCheapest(Loan x, Loan y)
+        {
+            if (x.amount < y.amount)
+                return -1;
+            else if (y.amount < x.amount)
+                return 1;
+            else
+                return 0;
+        }
+
+        public static int CompareLoanByNearest(Loan x, Loan y)
+        {
+            if (x.endDate < y.endDate)
+                return -1;
+            else if (y.endDate < x.endDate)
+                return 1;
+            else
+                return 0;
+        }
+
     }
 
     public int money = 0;   // Your money (0 BECAUSE YOU START WITH NOTHING)
@@ -120,6 +152,11 @@ public class Economy : MonoBehaviour
     public Text moneyPaidBackText;
     public Text remainingDebtText;
     public Slider debtSlider;
+
+    [Header("Loan list")]
+    public List<LoanListElement> loanList = new List<LoanListElement>();
+    public GameObject loanListElementPrefab;
+    public RectTransform loanListContent;
 
 
     // Start is called before the first frame update
@@ -232,6 +269,12 @@ public class Economy : MonoBehaviour
         EarnMoney(offers[offer].amount);
         UpdateMoneyBorrowedSlider();
         UpdateRemainingDebtText();
+
+        Loan o = offers[offer];
+        GameObject lle = Instantiate(loanListElementPrefab, loanListContent);
+        LoanListElement l = lle.GetComponent<LoanListElement>();
+        l.SetupLoanElement("Loan #" + (o.id+1) + "(day " + o.startDate + ')', o.amount, o.endDate, o.interestRate, o.GetInterest(), o.id);
+        loanList.Add(l);
     }
 
 
@@ -249,6 +292,7 @@ public class Economy : MonoBehaviour
         money -= amount;
         UpdateMoneyText();
         UpdateNextDayInterest(); // Not always usefull
+        UpdateRemainingDebtText();
 
         UpgradeManager._instance.CheckAffordableUpgrade();
     }
@@ -335,5 +379,76 @@ public class Economy : MonoBehaviour
         }
 
         remainingDebtText.text = remainingDebt + " q";
+    }
+
+
+
+    public void PayLoanById(int id)
+    {
+        Loan l = loans.Find(x => x.id == id);
+
+        if(l != null)
+        {
+            Debug.Log("LoanAmount : " + l.amount);
+            if (l.amount <= money)
+            {
+                loans.Remove(l);
+                totalMoneyPaidBack += l.amount;
+                UpdateMoneyPaidBackText();
+                UpdateMoneyBorrowedSlider();
+                SpendMoney(l.amount);
+                LoanListElement lle = loanList.Find(x => x.loanId == id);
+                if (lle != null)
+                {
+                    loanList.Remove(lle);
+                    Destroy(lle.gameObject);
+                }
+                else
+                {
+                    Debug.LogError("404 : lle not found");
+                }
+            }
+        }
+        else
+        {
+            Debug.LogError("404 : Loan not found");
+        }
+    }
+
+
+    public void SortByMaximumIntereset()
+    {
+        loans.Sort(Loan.CompareLoanByInterestRate);
+        int siblingPos = 0;
+        foreach(Loan l in loans)
+        {
+            LoanListElement lle = loanList.Find(x => x.loanId == l.id);
+            lle.rectTransform.SetSiblingIndex(siblingPos);
+            siblingPos++;
+        }
+    }
+
+    public void SortByCheapest()
+    {
+        loans.Sort(Loan.CompareLoanByCheapest);
+        int siblingPos = 0;
+        foreach (Loan l in loans)
+        {
+            LoanListElement lle = loanList.Find(x => x.loanId == l.id);
+            lle.rectTransform.SetSiblingIndex(siblingPos);
+            siblingPos++;
+        }
+    }
+
+    public void SortByNearest()
+    {
+        loans.Sort(Loan.CompareLoanByNearest);
+        int siblingPos = 0;
+        foreach (Loan l in loans)
+        {
+            LoanListElement lle = loanList.Find(x => x.loanId == l.id);
+            lle.rectTransform.SetSiblingIndex(siblingPos);
+            siblingPos++;
+        }
     }
 }
