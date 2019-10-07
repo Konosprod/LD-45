@@ -22463,6 +22463,7 @@ MonoBehaviour:
   playerAnimate: {fileID: 67118315}
   opponentAnimate: {fileID: 1858653496}
   actionPanel: {fileID: 1008052701}
+  textAnnonce: {fileID: 1290818685}
   fight1RewardMoneyText: {fileID: 1670231822}
   fight1RewardReputationText: {fileID: 1202584750}
   fight1PowerLevelText: {fileID: 1171405176}
@@ -23589,7 +23590,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1290818684
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23616,7 +23617,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1290818683}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
