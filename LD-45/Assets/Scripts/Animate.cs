@@ -107,7 +107,7 @@ public class Animate : MonoBehaviour
     {
         laser.SetActive(false);
         shield.SetActive(false);
-        transform.position = startingPos;
+        //transform.position = startingPos;
         isDone = true;
     }
 }
