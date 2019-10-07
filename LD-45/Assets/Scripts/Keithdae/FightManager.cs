@@ -39,8 +39,12 @@ public class FightManager : MonoBehaviour
     public Robot opponent;
     private Robot player;
 
+    [Header("UI")]
     public HealthBar playerHealth;
     public HealthBar opponentHealth;
+    public Animate playerAnimate;
+    public Animate opponentAnimate;
+    public GameObject actionPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +55,18 @@ public class FightManager : MonoBehaviour
         currentFight = new Fight(250, 7);
     }
 
+    private void Update()
+    {
+        if(!playerAnimate.isDone || !opponentAnimate.isDone)
+        {
+            actionPanel.SetActive(false);
+        }
+        else if(playerAnimate.isDone && opponentAnimate.isDone)
+        {
+            actionPanel.SetActive(true);
+        }
+    }
+
     public void UpdatePlayer()
     {
         player = GameManager._instance.playerRobot;
@@ -59,14 +75,17 @@ public class FightManager : MonoBehaviour
 
     public void UseAttack()
     {
+        playerAnimate.attackAnimation(1);
         CombatPhase(MoveType.Attack);
     }
     public void UseGuard()
     {
+        playerAnimate.ShieldAnimation();
         CombatPhase(MoveType.Guard);
     }
     public void UseProjectile()
     {
+        playerAnimate.LaserAnimation(1);
         CombatPhase(MoveType.Projectile);
     }
 
@@ -76,6 +95,24 @@ public class FightManager : MonoBehaviour
 
         float rpsMultiplier = 1f; // The damage bonus from RPS
         float opponentRpsMult = 1f;
+
+        switch(opponentMove)
+        {
+            case MoveType.Attack:
+                opponentAnimate.attackAnimation(-1);
+                break;
+
+            case MoveType.Guard:
+                opponentAnimate.ShieldAnimation();
+                break;
+
+            case MoveType.Projectile:
+                opponentAnimate.LaserAnimation(-1);
+                break;
+            default:
+                print("Allo ???");
+                break;
+        }
 
         // Rock, Paper, Scissors
         if (playerMove == MoveType.Attack)

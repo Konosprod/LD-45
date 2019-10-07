@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
-    public Fader fader;
+    public GameObject panelPrep;
 
 	// Use this for initialization
 	void Start () {
@@ -19,14 +19,9 @@ public class MainMenu : MonoBehaviour {
 
     public void PlayGame()
     {
-        if(SettingsManager._instance.gameSettings.firstRun == false)
-        {
-            fader.StartFadetoScene("Game");
-        }
-        else
-        {
-            fader.StartFadetoScene("Game");
-        }
+        this.gameObject.SetActive(false);
+        panelPrep.SetActive(true);
+        SoundManager._instance.PlayMusic(SoundType.Prep);
     }
 
     public void QuitGame()

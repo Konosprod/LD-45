@@ -8,16 +8,17 @@ public enum SoundType
 {
     None,
     Home,
-    Calm,
-    Fight,
-    Boss
+    Prep,
+    Fight
 };
 
 public enum SFXType
 {
     None,
     ButtonClick,
-    FateClick
+    Laser,
+    Shield,
+    Attack
 };
 
 public class SoundManager : MonoBehaviour
@@ -52,6 +53,7 @@ public class SoundManager : MonoBehaviour
 
         foreach (SoundType t in Enum.GetValues(typeof(SoundType)))
         {
+            print(t.ToString());
             if (t != SoundType.None)
                 audioClips[t] = Resources.Load<AudioClip>("Sounds/" + t.ToString());
         }
@@ -103,7 +105,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySFX(SFXType type)
     {
-        sfxSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
+        //sfxSource.pitch = UnityEngine.Random.Range(0.9f, 1.1f);
         sfxSource.PlayOneShot(sfxClips[type]);
     }
 
