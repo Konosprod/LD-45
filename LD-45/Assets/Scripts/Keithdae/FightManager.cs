@@ -55,6 +55,7 @@ public class FightManager : MonoBehaviour
     public Animate playerAnimate;
     public Animate opponentAnimate;
     public GameObject actionPanel;
+    public TextMeshProUGUI textAnnonce;
 
 
     // UI
@@ -431,5 +432,30 @@ public class FightManager : MonoBehaviour
         float highBoundary = highestProba + randDecal + Random.Range(10f / obsMult, 20f / obsMult);
 
         probaText.text = lowBoundary.ToString("F1") + "%-" + highBoundary.ToString("F1") + "%";
+    }
+
+    public void ShowAnnonce(string text, float time, System.Action callback = null)
+    {
+        StartCoroutine(doShowAnnonce(text, time, callback));
+    }
+
+    IEnumerator doShowAnnonce(string text, float time, System.Action callback = null)
+    {
+
+        textAnnonce.enabled = true;
+        yield return new WaitForEndOfFrame();
+
+        textAnnonce.text = text;
+        float elapsedTime = 0;
+
+        while(elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        textAnnonce.enabled = false;
+        if(callback != null)
+            callback();
     }
 }

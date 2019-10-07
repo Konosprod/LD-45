@@ -64,16 +64,21 @@ public class GameManager : MonoBehaviour
         UIManager._instance.ResetPreparationUI();
         if(win)
         {
+            fightManager.ShowAnnonce("You win !", 3f, ReturnToPrep);
             // You earn the money and reputation from the fight
             economy.EarnMoney(fightManager.currentFight.rewardMoney);
             economy.GainReputation(fightManager.currentFight.rewardReputation);
         }
         else
         {
+            fightManager.ShowAnnonce("You lose !", 3f, ReturnToPrep);
             // You lose reputation because you lost AND YOU ARE TRASH
             economy.LoseReputation(fightManager.currentFight.rewardReputation);
         }
+    }
 
+    private void ReturnToPrep()
+    {
         playerRobot.hp = playerRobot.maxHp;
 
         preparationPhaseUI.SetActive(true);
@@ -99,6 +104,7 @@ public class GameManager : MonoBehaviour
         fightManager.ResetHealthBars();
         fightManager.UpdateProbaUI();
         fightManager.ResetAction();
+        fightManager.ShowAnnonce("Fight !", 1f);
 
         preparationPhaseUI.SetActive(false);
         preparationBackground.SetActive(false);
