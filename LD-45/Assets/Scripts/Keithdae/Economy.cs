@@ -218,7 +218,7 @@ public class Economy : MonoBehaviour
             {
                 if (currentDay - bankruptStartDate > bankruptGracePeriod)
                 {
-                    // You have been bankrupt for 5 days in a row, YOU LOSE
+                    
 
                 }
             }

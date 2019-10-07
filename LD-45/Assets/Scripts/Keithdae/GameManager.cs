@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
 
     public Robot playerRobot;
+    public string RobotModel;
     private Economy economy;
     private FightManager fightManager;
 
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
     public GameObject preparationBackground;
     public GameObject fightPhaseUI;
     public GameObject fightThings; // Background, robots, grid
+    public GameObject actionPanel;
 
 
 
