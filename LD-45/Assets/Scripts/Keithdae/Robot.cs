@@ -101,11 +101,11 @@ public class Robot : MonoBehaviour
 
         float rand = Random.Range(0f, thresholdAttack + thresholdGuard + thresholdProjectile);
 
-        Debug.Log("%Atk=" + thresholdAttack + ",%Grd" + thresholdGuard + ",%Prj" + thresholdProjectile + " / Rand=" + rand);
+        //Debug.Log("%Atk=" + thresholdAttack + ",%Grd" + thresholdGuard + ",%Prj" + thresholdProjectile + " / Rand=" + rand);
 
         move = rand < thresholdAttack ? FightManager.MoveType.Attack : (rand < thresholdAttack + thresholdGuard ? FightManager.MoveType.Guard : FightManager.MoveType.Projectile);
 
-        Debug.Log("Move picked : " + move);
+        //Debug.Log("Move picked : " + move);
 
         return move;
     }
