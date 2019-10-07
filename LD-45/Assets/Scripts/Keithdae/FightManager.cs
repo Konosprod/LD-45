@@ -94,11 +94,11 @@ public class FightManager : MonoBehaviour
 
     private void Update()
     {
-        if(!playerAnimate.isDone || !opponentAnimate.isDone)
+        if (!playerAnimate.isDone || !opponentAnimate.isDone)
         {
             actionPanel.SetActive(false);
         }
-        else if(playerAnimate.isDone && opponentAnimate.isDone)
+        else if (playerAnimate.isDone && opponentAnimate.isDone)
         {
             actionPanel.SetActive(true);
         }
@@ -133,7 +133,17 @@ public class FightManager : MonoBehaviour
         float rpsMultiplier = 1f; // The damage bonus from RPS
         float opponentRpsMult = 1f;
 
-        switch(opponentMove)
+        if (UIManager.selectedSpecialUpgrade == 3) // Raging horns
+        {
+            int coinFlip = Random.Range(0, 2);
+            if (coinFlip == 1)
+            {
+                coinFlip = Random.Range(0, 3);
+                playerMove = coinFlip == 0 ? MoveType.Attack : (coinFlip == 1 ? MoveType.Guard : MoveType.Projectile);
+            }
+        }
+
+        switch (opponentMove)
         {
             case MoveType.Attack:
                 opponentAnimate.attackAnimation(-1);
@@ -159,8 +169,8 @@ public class FightManager : MonoBehaviour
                 case MoveType.Attack:   // Neutral result => multiplier is still 1f
                     break;
                 case MoveType.Guard:    // Bad matchup
-                    rpsMultiplier = 0.5f;
-                    opponentRpsMult = 1.5f;
+                    rpsMultiplier = UIManager.selectedSpecialUpgrade == 0 ? 1f : 0.5f; // Brute force
+                    opponentRpsMult = UIManager.selectedSpecialUpgrade == 0 ? 1f : 1.5f; // Brute force
                     break;
                 case MoveType.Projectile:   // Good matchup
                     rpsMultiplier = 1.5f;
@@ -178,26 +188,27 @@ public class FightManager : MonoBehaviour
                 case MoveType.Guard:   // Neutral result => multiplier is still 1f
                     break;
                 case MoveType.Projectile:    // Bad matchup
-                    rpsMultiplier = 0.5f;
-                    opponentRpsMult = 1.5f;
+                    rpsMultiplier = UIManager.selectedSpecialUpgrade == 1 ? 1f : 0.5f;  // Absolute defence
+                    opponentRpsMult = UIManager.selectedSpecialUpgrade == 1 ? 1f : 1.5f; // Absolute defence
                     break;
                 case MoveType.Attack:   // Good matchup
-                    rpsMultiplier = 1.5f;
-                    opponentRpsMult = 0.5f;
+                    rpsMultiplier = UIManager.selectedSpecialUpgrade == 0 ? 1f : 1.5f; // Absolute defence
+                    opponentRpsMult = UIManager.selectedSpecialUpgrade == 0 ? 1f : 0.5f; // Absolute defence
                     break;
                 default:
                     Debug.LogError("Wrong moveType : " + opponentMove);
                     break;
             }
         }
-        else
+        else // playerMove == MoveType.Projectile
         {
             switch (opponentMove)
             {
                 case MoveType.Projectile:   // Neutral result => multiplier is still 1f
+                    rpsMultiplier = UIManager.selectedSpecialUpgrade == 2 ? 1.5f : 1f; // Glass cannon
                     break;
                 case MoveType.Attack:    // Bad matchup
-                    rpsMultiplier = 0.5f;
+                    rpsMultiplier = UIManager.selectedSpecialUpgrade == 2 ? 1.5f : 0.5f; // Glass cannon
                     opponentRpsMult = 1.5f;
                     break;
                 case MoveType.Guard:   // Good matchup
@@ -210,10 +221,16 @@ public class FightManager : MonoBehaviour
             }
         }
 
+        // Rps multiplier correction
+        if (rpsMultiplier != 1f)
+            rpsMultiplier *= 1 + (((player.skill * UIManager.selectedSpecialUpgrade == 0 ? 0.5f : 1f) - opponent.skill) / 100); // Brute force
+        if (opponentRpsMult != 1f)
+            opponentRpsMult *= 1 + ((opponent.skill - (player.skill * UIManager.selectedSpecialUpgrade == 0 ? 0.5f : 1f)) / 100); // Brute force
+
         // Damage calculation
         float randFactor = Random.Range(0.8f, 1.2f);
-        int playerDamage = Mathf.FloorToInt(player.dmg * (100f / (100f + opponent.def)) * rpsMultiplier * randFactor);
-        int opponentDamage = Mathf.FloorToInt(opponent.dmg * (100f / (100f + player.def)) * opponentRpsMult * randFactor);
+        int playerDamage = Mathf.FloorToInt(player.dmg * (UIManager.selectedSpecialUpgrade == 3 ? 1.5f : 1f) * (UIManager.selectedSpecialUpgrade == 3 ? 1.5f : 1f) * (100f / (100f + opponent.def)) * rpsMultiplier * randFactor); // Raging horns
+        int opponentDamage = Mathf.FloorToInt(opponent.dmg * (100f / (100f + (player.def * UIManager.selectedSpecialUpgrade == 2 ? 0.5f : 1f))) * opponentRpsMult * randFactor); // Glass cannon
 
         Debug.Log("Opponent move : " + opponentMove);
         Debug.Log("Player damage = " + playerDamage + ", opponent damage = " + opponentDamage);

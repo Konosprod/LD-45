@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         {
             // You earn the money and reputation from the fight
             economy.EarnMoney(fightManager.currentFight.rewardMoney);
-            economy.GainReputation(fightManager.currentFight.rewardReputation);
+            economy.GainReputation(fightManager.currentFight.rewardReputation * (UIManager.selectedSpecialUpgrade == 4? 2 : 1));    // Reputation gains are doubled with top hat
         }
         else
         {
