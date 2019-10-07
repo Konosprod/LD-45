@@ -217,6 +217,11 @@ public class FightManager : MonoBehaviour
         }
     }
 
+    public void ResetHealthBars()
+    {
+        playerHealth.ResetHealthBar();
+        opponentHealth.ResetHealthBar();
+    }
 
     public void UpdateHealthBars()
     {
@@ -242,9 +247,11 @@ public class FightManager : MonoBehaviour
         float spreadDef = Random.Range(6f, 20f) * Robot.defPowerMult;
         float spreadSkl = Random.Range(7f, 18f) * Robot.sklPowerMult;
 
-        // Fight 1 (60 - 80% of player's power level)
-        opponentPowerLevel = Mathf.FloorToInt(playerPowerLevel * Random.Range(0.6f, 0.8f));
-        rewardMoney = 200;
+        float repRewardBoost = 1f + (Economy._instance.reputation / 100f);
+
+        // Fight 1 50 + (40 - 60% of player's power level)
+        opponentPowerLevel = 50 + Mathf.FloorToInt(playerPowerLevel * Random.Range(0.4f, 0.6f));
+        rewardMoney = Mathf.FloorToInt(200 * repRewardBoost);
         rewardRep = 7;
 
 
@@ -261,9 +268,9 @@ public class FightManager : MonoBehaviour
 
         fightOffers[0] = new Fight(rewardMoney, rewardRep, opponents[0]);
 
-        // Fight 2 (90 - 110% of player's power level)
-        opponentPowerLevel = Mathf.FloorToInt(playerPowerLevel * Random.Range(0.9f, 1.1f));
-        rewardMoney = 300;
+        // Fight 2 50 + (70 - 90% of player's power level)
+        opponentPowerLevel = 50 + Mathf.FloorToInt(playerPowerLevel * Random.Range(0.7f, 0.9f));
+        rewardMoney = Mathf.FloorToInt(300 * repRewardBoost);
         rewardRep = 20;
 
 
@@ -284,9 +291,9 @@ public class FightManager : MonoBehaviour
 
         fightOffers[1] = new Fight(rewardMoney, rewardRep, opponents[1]);
 
-        // Fight 3 (130 - 150% of player's power level)
-        opponentPowerLevel = Mathf.FloorToInt(playerPowerLevel * Random.Range(1.3f, 1.5f));
-        rewardMoney = 450;
+        // Fight 3 50 + (110 - 130% of player's power level)
+        opponentPowerLevel = 50 + Mathf.FloorToInt(playerPowerLevel * Random.Range(1.1f, 1.3f));
+        rewardMoney = Mathf.FloorToInt(450 * repRewardBoost);
         rewardRep = 50;
 
         spreadHp = Random.Range(20f, 50f) * Robot.hpPowerMult;

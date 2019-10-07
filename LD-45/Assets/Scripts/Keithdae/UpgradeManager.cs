@@ -72,6 +72,7 @@ public class UpgradeManager : MonoBehaviour
             Economy._instance.SpendMoney(GetUpgradeCost(hpUpgradeLevel));
             hpUpgradeLevel++;
             GameManager._instance.playerRobot.maxHp += 10;
+            GameManager._instance.playerRobot.hp = GameManager._instance.playerRobot.maxHp;
             GameManager._instance.UpdateRobotStats();
             CheckAffordableUpgrade();
         }

@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI dmgRobotStatText;
     public TextMeshProUGUI defRobotStatText;
     public TextMeshProUGUI sklRobotStatText;
+    public TextMeshProUGUI pwrRobotStatText;
 
     [Header("Character stats")]
     public TextMeshProUGUI obsCharacterStatText;
@@ -47,10 +48,7 @@ public class GameManager : MonoBehaviour
         economy = Economy._instance;
         fightManager = FightManager._instance;
 
-        UpdateHpRobotStatText();
-        UpdateDmgRobotStatText();
-        UpdateDefRobotStatText();
-        UpdateSklRobotStatText();
+        UpdateRobotStats();
         UpdateObsCharacterStatText();
     }
 
@@ -76,9 +74,13 @@ public class GameManager : MonoBehaviour
             economy.LoseReputation(fightManager.currentFight.rewardReputation);
         }
 
+        playerRobot.hp = playerRobot.maxHp;
+
         preparationPhaseUI.SetActive(true);
         UIManager._instance.ResetPreparationUI();
+        preparationBackground.SetActive(true);
         fightPhaseUI.SetActive(false);
+        fightThings.SetActive(false);
 
         fightManager.CreateFightOffers();
         economy.NextDay();
@@ -91,10 +93,12 @@ public class GameManager : MonoBehaviour
 
         playerRobot.hp = playerRobot.maxHp;
         fightManager.opponent.hp = fightManager.opponent.maxHp;
-        fightManager.UpdateHealthBars();
+        fightManager.ResetHealthBars();
 
         preparationPhaseUI.SetActive(false);
+        preparationBackground.SetActive(false);
         fightPhaseUI.SetActive(true);
+        fightThings.SetActive(true);
     }
 
 
@@ -106,6 +110,7 @@ public class GameManager : MonoBehaviour
         UpdateDmgRobotStatText();
         UpdateDefRobotStatText();
         UpdateSklRobotStatText();
+        UpdatePwrRobotStatText();
     }
 
     public void UpdateHpRobotStatText()
@@ -123,6 +128,10 @@ public class GameManager : MonoBehaviour
     public void UpdateSklRobotStatText()
     {
         sklRobotStatText.text = "SKL : " + playerRobot.skill;
+    }
+    public void UpdatePwrRobotStatText()
+    {
+        pwrRobotStatText.text = "PWR : " + playerRobot.GetPowerLevel();
     }
 
     // Character stats
