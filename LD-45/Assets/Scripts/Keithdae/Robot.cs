@@ -18,6 +18,16 @@ public class Robot : MonoBehaviour
         ProjectileHeavy     // ~20% attack / ~20% guard / ~60% projectile
     };
 
+    public enum RobotModel
+    {
+        rom,
+        killer_bee,
+        spin_master,
+        red_box,
+        kraboss,
+        crs
+    }
+
     public int maxHp;
     [HideInInspector()]
     public int hp;
@@ -29,6 +39,8 @@ public class Robot : MonoBehaviour
     private float thresholdAttack;
     private float thresholdGuard;
     private float thresholdProjectile;
+
+    public RobotModel model;
 
     public void SetRobot(int mHp, int dm, int df, int skl, RobotBehaviourType rbt)
     {
@@ -68,6 +80,8 @@ public class Robot : MonoBehaviour
                 Debug.LogError("Non.");
                 break;
         }
+
+        model = (RobotModel)Random.Range(0, 6);
     }
 
 

@@ -64,16 +64,19 @@ public class FightManager : MonoBehaviour
     public TextMeshProUGUI fight1RewardReputationText;
     public TextMeshProUGUI fight1PowerLevelText;
     public TextMeshProUGUI fight1BehaviourTypeText;
+    public Image fight1RobotImage;
 
     public TextMeshProUGUI fight2RewardMoneyText;
     public TextMeshProUGUI fight2RewardReputationText;
     public TextMeshProUGUI fight2PowerLevelText;
     public TextMeshProUGUI fight2BehaviourTypeText;
+    public Image fight2RobotImage;
 
     public TextMeshProUGUI fight3RewardMoneyText;
     public TextMeshProUGUI fight3RewardReputationText;
     public TextMeshProUGUI fight3PowerLevelText;
     public TextMeshProUGUI fight3BehaviourTypeText;
+    public Image fight3RobotImage;
 
 
     [Header("Fight UI proba")]
@@ -130,6 +133,7 @@ public class FightManager : MonoBehaviour
     public void CombatPhase(MoveType playerMove)
     {
         MoveType opponentMove = opponent.ChoseMove();
+        MoveType actualPlayerMove = playerMove;
 
         float rpsMultiplier = 1f; // The damage bonus from RPS
         float opponentRpsMult = 1f;
@@ -137,10 +141,12 @@ public class FightManager : MonoBehaviour
         if (UIManager.selectedSpecialUpgrade == 3) // Raging horns
         {
             int coinFlip = Random.Range(0, 2);
+            Debug.Log("CoinFlip : " + coinFlip);
             if (coinFlip == 1)
             {
                 coinFlip = Random.Range(0, 3);
-                playerMove = coinFlip == 0 ? MoveType.Attack : (coinFlip == 1 ? MoveType.Guard : MoveType.Projectile);
+                Debug.Log("CoinFlip2 : " + coinFlip);
+                actualPlayerMove = coinFlip == 0 ? MoveType.Attack : (coinFlip == 1 ? MoveType.Guard : MoveType.Projectile);
             }
         }
 
@@ -163,7 +169,7 @@ public class FightManager : MonoBehaviour
         }
 
         // Rock, Paper, Scissors
-        if (playerMove == MoveType.Attack)
+        if (actualPlayerMove == MoveType.Attack)
         {
             switch (opponentMove)
             {
@@ -182,7 +188,7 @@ public class FightManager : MonoBehaviour
                     break;
             }
         }
-        else if (playerMove == MoveType.Guard)
+        else if (actualPlayerMove == MoveType.Guard)
         {
             switch (opponentMove)
             {
@@ -434,6 +440,10 @@ public class FightManager : MonoBehaviour
         fight1BehaviourTypeText.text = GetBehaviourDesc(fightOffers[0].opponent.behaviourType);
         fight2BehaviourTypeText.text = GetBehaviourDesc(fightOffers[1].opponent.behaviourType);
         fight3BehaviourTypeText.text = GetBehaviourDesc(fightOffers[2].opponent.behaviourType);
+
+        /*fight1RobotImage.sprite = AllRobotSprites._instance.GetSpriteByModel(fightOffers[0].opponent.model);
+        fight2RobotImage.sprite = AllRobotSprites._instance.GetSpriteByModel(fightOffers[1].opponent.model);
+        fight3RobotImage.sprite = AllRobotSprites._instance.GetSpriteByModel(fightOffers[2].opponent.model);*/
     }
 
     public void UpdateProbaUI()
@@ -465,14 +475,14 @@ public class FightManager : MonoBehaviour
         textAnnonce.text = text;
         float elapsedTime = 0;
 
-        while(elapsedTime < time)
+        while (elapsedTime < time)
         {
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
 
         textAnnonce.enabled = false;
-        if(callback != null)
+        if (callback != null)
             callback();
     }
 }

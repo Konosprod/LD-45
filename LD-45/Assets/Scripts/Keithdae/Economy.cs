@@ -167,6 +167,18 @@ public class Economy : MonoBehaviour
         UpdateMoneyText();
         UpdateReputationText();
         UpdateNextDayInterest();
+
+        // Get your first loan
+        Loan initialLoan = new Loan(500, 2f, currentDay + 50);
+        loans.Add(initialLoan);
+        EarnMoney(initialLoan.amount);
+
+        GameObject lle = Instantiate(loanListElementPrefab, loanListContent);
+        LoanListElement l = lle.GetComponent<LoanListElement>();
+        l.SetupLoanElement("Loan #" + (initialLoan.id + 1) + "(day " + initialLoan.startDate + ')', initialLoan.amount, initialLoan.endDate, initialLoan.interestRate, initialLoan.GetInterest(), initialLoan.id);
+        loanList.Add(l);
+
+
         // Create the first loan offers
         CreateOffers();
         UpdateOffers();
