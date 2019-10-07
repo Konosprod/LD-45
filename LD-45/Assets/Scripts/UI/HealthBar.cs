@@ -21,6 +21,11 @@ public class HealthBar : MonoBehaviour
         
     }
 
+    public void ResetHealthBar()
+    {
+        health.fillAmount = 1f;
+    }
+
     public void UpdateHealthBar(float value)
     {
         StartCoroutine(decreaseHealth(value));

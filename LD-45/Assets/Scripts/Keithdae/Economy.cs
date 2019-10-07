@@ -22,7 +22,7 @@ public class Economy : MonoBehaviour
     [HideInInspector]
     public static int loanId = 0; // internal id for loans to be able to search/remove them from the list
 
-    public const int loanOfferNb = 3;   // Number of loan you are offered each day
+    public const int loanOfferNb = 3;   // Number of loans you are offered each day
 
     public class Loan
     {
@@ -85,7 +85,6 @@ public class Economy : MonoBehaviour
     public int reputation = 0;  // Your reputation (0 BECAUSE YOU START WITH NOTHING)
 
     public List<Loan> loans = new List<Loan>(); // Your loans
-    public int totalMoneyBorrowed = 0; // For the slider
     public int totalMoneyPaidBack = 0;
 
     public Loan[] offers = new Loan[loanOfferNb];
@@ -231,7 +230,6 @@ public class Economy : MonoBehaviour
     {
         loans.Add(offers[offer]);
         EarnMoney(offers[offer].amount);
-        totalMoneyBorrowed += offers[offer].amount;
         UpdateMoneyBorrowedSlider();
         UpdateRemainingDebtText();
     }
@@ -243,12 +241,16 @@ public class Economy : MonoBehaviour
         money += amount;
         UpdateMoneyText();
         UpdateNextDayInterest(); // Not always usefull
+
+        UpgradeManager._instance.CheckAffordableUpgrade();
     }
     public void SpendMoney(int amount)
     {
         money -= amount;
         UpdateMoneyText();
         UpdateNextDayInterest(); // Not always usefull
+
+        UpgradeManager._instance.CheckAffordableUpgrade();
     }
     // Same shit for reputation
     public void GainReputation(int amount)
@@ -259,6 +261,10 @@ public class Economy : MonoBehaviour
     public void LoseReputation(int amount)
     {
         reputation -= amount;
+        if(reputation < 0)
+        {
+            reputation = 0;
+        }
         UpdateReputationText();
     }
 
@@ -310,7 +316,13 @@ public class Economy : MonoBehaviour
 
     public void UpdateMoneyBorrowedSlider()
     {
-        float ratio = totalMoneyPaidBack / (totalMoneyBorrowed != 0f ? totalMoneyBorrowed : 1f);
+        int remainingDebt = 0;
+        foreach (Loan loan in loans)
+        {
+            remainingDebt += loan.GetRemainingDebt();
+        }
+        int totalDebt = totalMoneyPaidBack + remainingDebt;
+        float ratio = totalMoneyPaidBack / (totalDebt != 0f ? totalDebt : 1f) * 100f;
         debtSlider.value = ratio;
     }
 

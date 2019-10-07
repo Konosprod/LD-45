@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -20,8 +22,33 @@ public class UpgradeManager : MonoBehaviour
     public int defUpgradeLevel = 0;
     public int skillUpgradeLevel = 0;
 
+    [Header("UI")]
+    public Button upgradeHPButton;
+    public Button upgradeDMGButton;
+    public Button upgradeDEFButton;
+    public Button upgradeSKLButton;
+
+    public TextMeshProUGUI upgradeHPCostText;
+    public TextMeshProUGUI upgradeDMGCostText;
+    public TextMeshProUGUI upgradeDEFCostText;
+    public TextMeshProUGUI upgradeSKLCostText;
+
+    public TextMeshProUGUI upgradeHPLevelText;
+    public TextMeshProUGUI upgradeDMGLevelText;
+    public TextMeshProUGUI upgradeDEFLevelText;
+    public TextMeshProUGUI upgradeSKLLevelText;
+
     [Header("Character upgrades")]
     public int obsUpgradeLevel = 0;
+
+    [Header("UI")]
+    public Button upgradeOBSButton;
+
+    public TextMeshProUGUI upgradeOBSCostText;
+
+    public TextMeshProUGUI upgradeOBSLevelText;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +57,10 @@ public class UpgradeManager : MonoBehaviour
         dmgUpgradeLevel = 0;
         defUpgradeLevel = 0;
         skillUpgradeLevel = 0;
+
         obsUpgradeLevel = 0;
+
+        CheckAffordableUpgrade();
     }
 
     public int GetUpgradeCost(int level) // 100 => 150 => 250 => 400 => 600 => 850 => 1150
@@ -52,6 +82,9 @@ public class UpgradeManager : MonoBehaviour
             Economy._instance.SpendMoney(GetUpgradeCost(hpUpgradeLevel));
             hpUpgradeLevel++;
             GameManager._instance.playerRobot.maxHp += 10;
+            GameManager._instance.playerRobot.hp = GameManager._instance.playerRobot.maxHp;
+            GameManager._instance.UpdateRobotStats();
+            CheckAffordableUpgrade();
         }
         else
         {
@@ -65,6 +98,8 @@ public class UpgradeManager : MonoBehaviour
             Economy._instance.SpendMoney(GetUpgradeCost(dmgUpgradeLevel));
             dmgUpgradeLevel++;
             GameManager._instance.playerRobot.dmg += 3;
+            GameManager._instance.UpdateRobotStats();
+            CheckAffordableUpgrade();
         }
         else
         {
@@ -78,6 +113,8 @@ public class UpgradeManager : MonoBehaviour
             Economy._instance.SpendMoney(GetUpgradeCost(defUpgradeLevel));
             defUpgradeLevel++;
             GameManager._instance.playerRobot.def += 3;
+            GameManager._instance.UpdateRobotStats();
+            CheckAffordableUpgrade();
         }
         else
         {
@@ -91,6 +128,8 @@ public class UpgradeManager : MonoBehaviour
             Economy._instance.SpendMoney(GetUpgradeCost(skillUpgradeLevel));
             skillUpgradeLevel++;
             GameManager._instance.playerRobot.skill += 3;
+            GameManager._instance.UpdateRobotStats();
+            CheckAffordableUpgrade();
         }
         else
         {
@@ -104,10 +143,39 @@ public class UpgradeManager : MonoBehaviour
             Economy._instance.SpendMoney(GetUpgradeCost(obsUpgradeLevel));
             obsUpgradeLevel++;
             GameManager._instance.observation += 3;
+            GameManager._instance.UpdateObsCharacterStatText();
+            CheckAffordableUpgrade();
         }
         else
         {
             Debug.LogError("Cannot afford upgrade");
         }
+    }
+
+
+    public void CheckAffordableUpgrade()
+    {
+        // Robot
+        upgradeHPButton.interactable = CanAffordUpgrade(hpUpgradeLevel);
+        upgradeDMGButton.interactable = CanAffordUpgrade(dmgUpgradeLevel);
+        upgradeDEFButton.interactable = CanAffordUpgrade(defUpgradeLevel);
+        upgradeSKLButton.interactable = CanAffordUpgrade(skillUpgradeLevel);
+
+        upgradeHPCostText.text = "Cost : " + GetUpgradeCost(hpUpgradeLevel) + " q";
+        upgradeDMGCostText.text = "Cost : " + GetUpgradeCost(dmgUpgradeLevel) + " q";
+        upgradeDEFCostText.text = "Cost : " + GetUpgradeCost(defUpgradeLevel) + " q";
+        upgradeSKLCostText.text = "Cost : " + GetUpgradeCost(skillUpgradeLevel) + " q";
+
+        upgradeHPLevelText.text = "Level " + hpUpgradeLevel;
+        upgradeDMGLevelText.text = "Level " + dmgUpgradeLevel;
+        upgradeDEFLevelText.text = "Level " + defUpgradeLevel;
+        upgradeSKLLevelText.text = "Level " + skillUpgradeLevel;
+
+        // Character
+        upgradeOBSButton.interactable = CanAffordUpgrade(obsUpgradeLevel);
+
+        upgradeOBSCostText.text = "Cost : " + GetUpgradeCost(obsUpgradeLevel) + " q";
+
+        upgradeOBSLevelText.text = "Level " + obsUpgradeLevel;
     }
 }
