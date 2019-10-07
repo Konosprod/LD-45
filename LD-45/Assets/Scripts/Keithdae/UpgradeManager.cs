@@ -172,6 +172,7 @@ public class UpgradeManager : MonoBehaviour
             Economy._instance.SpendMoney(specialUpgradeCost);
             specialUpgradesUnlocked = true;
             specialUpgradeButtonText.text = "UNLOCKED";
+            UIManager._instance.SpecialUpgradeTextUpdate();
             CheckAffordableUpgrade();
         }
         else
