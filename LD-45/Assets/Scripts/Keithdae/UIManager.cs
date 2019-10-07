@@ -100,6 +100,9 @@ public class UIManager : MonoBehaviour
     public GameObject selectedLoanBackground1;
     public GameObject selectedLoanBackground2;
     public GameObject selectedLoanBackground3;
+    public GameObject selectedLoanSignStamp1;
+    public GameObject selectedLoanSignStamp2;
+    public GameObject selectedLoanSignStamp3;
 
     public static int selectedFight = -1;
 
@@ -310,6 +313,10 @@ public class UIManager : MonoBehaviour
         selectedLoanBackground1.SetActive(false);
         selectedLoanBackground2.SetActive(false);
         selectedLoanBackground3.SetActive(false);
+
+        selectedLoanSignStamp1.SetActive(false);
+        selectedLoanSignStamp2.SetActive(false);
+        selectedLoanSignStamp3.SetActive(false);
 
         loanButton1.interactable = true;
         loanButton2.interactable = true;

@@ -89,6 +89,10 @@ public class GameManager : MonoBehaviour
         fightManager.opponent = fightManager.fightOffers[UIManager.selectedFight].opponent;
         fightManager.currentFight = fightManager.fightOffers[UIManager.selectedFight];
 
+        playerRobot.hp = playerRobot.maxHp;
+        fightManager.opponent.hp = fightManager.opponent.maxHp;
+        fightManager.UpdateHealthBars();
+
         preparationPhaseUI.SetActive(false);
         fightPhaseUI.SetActive(true);
     }
@@ -96,6 +100,14 @@ public class GameManager : MonoBehaviour
 
     // UI
     // Robot stats
+    public void UpdateRobotStats()
+    {
+        UpdateHpRobotStatText();
+        UpdateDmgRobotStatText();
+        UpdateDefRobotStatText();
+        UpdateSklRobotStatText();
+    }
+
     public void UpdateHpRobotStatText()
     {
         hpRobotStatText.text = " HP : " + playerRobot.hp + '/' + playerRobot.maxHp;

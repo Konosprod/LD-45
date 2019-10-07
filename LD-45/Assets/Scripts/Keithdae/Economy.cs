@@ -241,12 +241,16 @@ public class Economy : MonoBehaviour
         money += amount;
         UpdateMoneyText();
         UpdateNextDayInterest(); // Not always usefull
+
+        UpgradeManager._instance.CheckAffordableUpgrade();
     }
     public void SpendMoney(int amount)
     {
         money -= amount;
         UpdateMoneyText();
         UpdateNextDayInterest(); // Not always usefull
+
+        UpgradeManager._instance.CheckAffordableUpgrade();
     }
     // Same shit for reputation
     public void GainReputation(int amount)
@@ -257,6 +261,10 @@ public class Economy : MonoBehaviour
     public void LoseReputation(int amount)
     {
         reputation -= amount;
+        if(reputation < 0)
+        {
+            reputation = 0;
+        }
         UpdateReputationText();
     }
 
