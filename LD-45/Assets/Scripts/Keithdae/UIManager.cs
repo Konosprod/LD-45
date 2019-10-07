@@ -83,6 +83,24 @@ public class UIManager : MonoBehaviour
     public Color loanTextHighlightedColor;
     private Color loanTextBaseColor;
 
+    [Header("Special upgrades")]
+    public Image selectButtonBackground1;
+    public Image selectButtonBackground2;
+    public Image selectButtonBackground3;
+    public Image selectButtonBackground4;
+    public Image selectButtonBackground5;
+
+    public TextMeshProUGUI selectButtonText1;
+    public TextMeshProUGUI selectButtonText2;
+    public TextMeshProUGUI selectButtonText3;
+    public TextMeshProUGUI selectButtonText4;
+    public TextMeshProUGUI selectButtonText5;
+
+    public Color selectButtonBackgroundHighlightedColor;
+    public Color selectButtonTextHighlightedColor;
+
+    private Color selectButtonBackgroundBaseColor;
+    private Color selectButtonTextBaseColor;
 
     [Header("Things for reset")]
     public GameObject fightPanel;
@@ -106,6 +124,8 @@ public class UIManager : MonoBehaviour
 
     public static int selectedFight = -1;
 
+    public static int selectedSpecialUpgrade = -1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -127,6 +147,10 @@ public class UIManager : MonoBehaviour
         // Setup for loan selection
         loanBackgroundBaseColor = loanBackground1.color;
         loanTextBaseColor = loanText1.color;
+
+        // Setup for special upgrades
+        selectButtonBackgroundBaseColor = selectButtonBackground1.color;
+        selectButtonTextBaseColor = selectButtonText1.color;
     }
 
     // Update is called once per frame
@@ -323,4 +347,106 @@ public class UIManager : MonoBehaviour
         loanButton3.interactable = true;
     }
 
+
+    // Special upgrades functions
+    public void SpecialUpgrade1Click()
+    {
+        selectButtonBackground1.color = selectButtonBackgroundHighlightedColor;
+        selectButtonBackground2.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground3.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground4.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground5.color = selectButtonBackgroundBaseColor;
+
+        selectButtonText1.color = selectButtonTextHighlightedColor;
+        selectButtonText2.color = selectButtonTextBaseColor;
+        selectButtonText3.color = selectButtonTextBaseColor;
+        selectButtonText4.color = selectButtonTextBaseColor;
+        selectButtonText5.color = selectButtonTextBaseColor;
+
+        selectButtonText1.text = "Selected";
+
+        selectedSpecialUpgrade = 0;
+    }
+    public void SpecialUpgrade2Click()
+    {
+        selectButtonBackground1.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground2.color = selectButtonBackgroundHighlightedColor;
+        selectButtonBackground3.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground4.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground5.color = selectButtonBackgroundBaseColor;
+
+        selectButtonText1.color = selectButtonTextBaseColor;
+        selectButtonText2.color = selectButtonTextHighlightedColor;
+        selectButtonText3.color = selectButtonTextBaseColor;
+        selectButtonText4.color = selectButtonTextBaseColor;
+        selectButtonText5.color = selectButtonTextBaseColor;
+
+        selectButtonText2.text = "Selected";
+
+        selectedSpecialUpgrade = 1;
+    }
+    public void SpecialUpgrade3Click()
+    {
+        selectButtonBackground1.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground2.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground3.color = selectButtonBackgroundHighlightedColor;
+        selectButtonBackground4.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground5.color = selectButtonBackgroundBaseColor;
+
+        selectButtonText1.color = selectButtonTextBaseColor;
+        selectButtonText2.color = selectButtonTextBaseColor;
+        selectButtonText3.color = selectButtonTextHighlightedColor;
+        selectButtonText4.color = selectButtonTextBaseColor;
+        selectButtonText5.color = selectButtonTextBaseColor;
+
+        selectButtonText3.text = "Selected";
+
+        selectedSpecialUpgrade = 2;
+    }
+    public void SpecialUpgrade4Click()
+    {
+        selectButtonBackground1.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground2.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground3.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground4.color = selectButtonBackgroundHighlightedColor;
+        selectButtonBackground5.color = selectButtonBackgroundBaseColor;
+
+        selectButtonText1.color = selectButtonTextBaseColor;
+        selectButtonText2.color = selectButtonTextBaseColor;
+        selectButtonText3.color = selectButtonTextBaseColor;
+        selectButtonText4.color = selectButtonTextHighlightedColor;
+        selectButtonText5.color = selectButtonTextBaseColor;
+
+        selectButtonText4.text = "Selected";
+
+        selectedSpecialUpgrade = 3;
+    }
+    public void SpecialUpgrade5Click()
+    {
+        selectButtonBackground1.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground2.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground3.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground4.color = selectButtonBackgroundBaseColor;
+        selectButtonBackground5.color = selectButtonBackgroundHighlightedColor;
+
+        selectButtonText1.color = selectButtonTextBaseColor;
+        selectButtonText2.color = selectButtonTextBaseColor;
+        selectButtonText3.color = selectButtonTextBaseColor;
+        selectButtonText4.color = selectButtonTextBaseColor;
+        selectButtonText5.color = selectButtonTextHighlightedColor;
+
+        selectButtonText5.text = "Selected";
+
+        selectedSpecialUpgrade = 4;
+    }
+
+
+    public void SpecialUpgradeTextUpdate()
+    {
+        selectButtonText1.text = "Select";
+        selectButtonText2.text = "Select";
+        selectButtonText3.text = "Select";
+        selectButtonText4.text = "Select";
+        selectButtonText5.text = "Select";
+    }
 }
