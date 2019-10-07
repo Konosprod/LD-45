@@ -33,10 +33,20 @@ public class UpgradeManager : MonoBehaviour
     public TextMeshProUGUI upgradeDEFCostText;
     public TextMeshProUGUI upgradeSKLCostText;
 
+    public TextMeshProUGUI upgradeHPLevelText;
+    public TextMeshProUGUI upgradeDMGLevelText;
+    public TextMeshProUGUI upgradeDEFLevelText;
+    public TextMeshProUGUI upgradeSKLLevelText;
+
     [Header("Character upgrades")]
     public int obsUpgradeLevel = 0;
 
-    //UI
+    [Header("UI")]
+    public Button upgradeOBSButton;
+
+    public TextMeshProUGUI upgradeOBSCostText;
+
+    public TextMeshProUGUI upgradeOBSLevelText;
 
 
 
@@ -133,7 +143,7 @@ public class UpgradeManager : MonoBehaviour
             Economy._instance.SpendMoney(GetUpgradeCost(obsUpgradeLevel));
             obsUpgradeLevel++;
             GameManager._instance.observation += 3;
-
+            GameManager._instance.UpdateObsCharacterStatText();
             CheckAffordableUpgrade();
         }
         else
@@ -145,6 +155,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void CheckAffordableUpgrade()
     {
+        // Robot
         upgradeHPButton.interactable = CanAffordUpgrade(hpUpgradeLevel);
         upgradeDMGButton.interactable = CanAffordUpgrade(dmgUpgradeLevel);
         upgradeDEFButton.interactable = CanAffordUpgrade(defUpgradeLevel);
@@ -154,5 +165,17 @@ public class UpgradeManager : MonoBehaviour
         upgradeDMGCostText.text = "Cost : " + GetUpgradeCost(dmgUpgradeLevel) + " q";
         upgradeDEFCostText.text = "Cost : " + GetUpgradeCost(defUpgradeLevel) + " q";
         upgradeSKLCostText.text = "Cost : " + GetUpgradeCost(skillUpgradeLevel) + " q";
+
+        upgradeHPLevelText.text = "Level " + hpUpgradeLevel;
+        upgradeDMGLevelText.text = "Level " + dmgUpgradeLevel;
+        upgradeDEFLevelText.text = "Level " + defUpgradeLevel;
+        upgradeSKLLevelText.text = "Level " + skillUpgradeLevel;
+
+        // Character
+        upgradeOBSButton.interactable = CanAffordUpgrade(obsUpgradeLevel);
+
+        upgradeOBSCostText.text = "Cost : " + GetUpgradeCost(obsUpgradeLevel) + " q";
+
+        upgradeOBSLevelText.text = "Level " + obsUpgradeLevel;
     }
 }

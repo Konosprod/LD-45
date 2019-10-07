@@ -249,8 +249,8 @@ public class FightManager : MonoBehaviour
 
         float repRewardBoost = 1f + (Economy._instance.reputation / 100f);
 
-        // Fight 1 50 + (40 - 60% of player's power level)
-        opponentPowerLevel = 50 + Mathf.FloorToInt(playerPowerLevel * Random.Range(0.4f, 0.6f));
+        // Fight 1 50 + (50 - 70% of player's power level)
+        opponentPowerLevel = 50 + Mathf.FloorToInt(playerPowerLevel * Random.Range(0.5f, 0.7f));
         rewardMoney = Mathf.FloorToInt(200 * repRewardBoost);
         rewardRep = 7;
 
@@ -268,8 +268,8 @@ public class FightManager : MonoBehaviour
 
         fightOffers[0] = new Fight(rewardMoney, rewardRep, opponents[0]);
 
-        // Fight 2 50 + (70 - 90% of player's power level)
-        opponentPowerLevel = 50 + Mathf.FloorToInt(playerPowerLevel * Random.Range(0.7f, 0.9f));
+        // Fight 2 50 + (80 - 100% of player's power level)
+        opponentPowerLevel = 50 + Mathf.FloorToInt(playerPowerLevel * Random.Range(0.8f, 1.0f));
         rewardMoney = Mathf.FloorToInt(300 * repRewardBoost);
         rewardRep = 20;
 
