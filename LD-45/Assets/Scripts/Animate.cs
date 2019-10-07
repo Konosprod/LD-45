@@ -102,4 +102,12 @@ public class Animate : MonoBehaviour
         isDone = true;
         transform.position = startingPos;
     }
+
+    public void ResetAnimations()
+    {
+        laser.SetActive(false);
+        shield.SetActive(false);
+        transform.position = startingPos;
+        isDone = true;
+    }
 }

@@ -265,6 +265,8 @@ public class FightManager : MonoBehaviour
 
     public void ResetHealthBars()
     {
+        playerAnimate.ResetAnimations();
+        opponentAnimate.ResetAnimations();
         playerHealth.ResetHealthBar();
         opponentHealth.ResetHealthBar();
     }
@@ -273,6 +275,11 @@ public class FightManager : MonoBehaviour
     {
         playerHealth.UpdateHealthBar((float)player.hp / player.maxHp);
         opponentHealth.UpdateHealthBar((float)opponent.hp / opponent.maxHp);
+    }
+
+    public void ResetAction()
+    {
+        actionPanel.SetActive(true);
     }
 
     public void CreateFightOffers()
