@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Robot : MonoBehaviour
 {
+    public static float hpPowerMult = 1f;
+    public static float dmgPowerMult = 3f;
+    public static float defPowerMult = 3f;
+    public static float sklPowerMult = 2f;
+
+
     public enum RobotBehaviourType
     {
         Balanced,           // ~33% attack / ~33% guard / ~33% projectile
@@ -24,11 +30,14 @@ public class Robot : MonoBehaviour
     private float thresholdGuard;
     private float thresholdProjectile;
 
-
-    // Start is called before the first frame update
-    void Start()
+    public void SetRobot(int mHp, int dm, int df, int skl, RobotBehaviourType rbt)
     {
+        maxHp = mHp;
         hp = maxHp;
+        dmg = dm;
+        def = df;
+        skill = skl;
+        behaviourType = rbt;
 
         float randomRand = Random.Range(0f, 6f);
 
@@ -61,6 +70,15 @@ public class Robot : MonoBehaviour
         }
     }
 
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        hp = maxHp;
+
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -82,8 +100,24 @@ public class Robot : MonoBehaviour
         FightManager.MoveType move;
 
         float rand = Random.Range(0f, thresholdAttack + thresholdGuard + thresholdProjectile);
-        move = rand < thresholdAttack ? FightManager.MoveType.Attack : rand < thresholdGuard ? FightManager.MoveType.Guard : FightManager.MoveType.Projectile;
+
+        Debug.Log("%Atk=" + thresholdAttack + ",%Grd" + thresholdGuard + ",%Prj" + thresholdProjectile + " / Rand=" + rand);
+
+        move = rand < thresholdAttack ? FightManager.MoveType.Attack : (rand < thresholdAttack + thresholdGuard ? FightManager.MoveType.Guard : FightManager.MoveType.Projectile);
+
+        Debug.Log("Move picked : " + move);
 
         return move;
+    }
+
+    public int GetPowerLevel()
+    {
+        // Power is HP + dmg * 3 + def * 3 + skill * 2
+        return Mathf.FloorToInt(maxHp * hpPowerMult + dmg * dmgPowerMult + def * defPowerMult + skill * sklPowerMult);
+    }
+
+    public override string ToString()
+    {
+        return "MaxHp = " + maxHp + '\n' + "Dmg = " + dmg + '\n' + "Def = " + def + '\n' + "Skl = " + skill;
     }
 }

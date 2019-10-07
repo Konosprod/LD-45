@@ -65,6 +65,8 @@ public class UIManager : MonoBehaviour
 
     private Color challengeTextBaseColor;
 
+    public Button startFightButton;
+
 
     [Header("Loan panel")]
     public Image loanBackground1;
@@ -82,7 +84,22 @@ public class UIManager : MonoBehaviour
     private Color loanTextBaseColor;
 
 
+    [Header("Things for reset")]
+    public GameObject fightPanel;
+    public GameObject moneyPanel;
 
+    public GameObject selectedFightBackground1;
+    public GameObject selectedFightBackground2;
+    public GameObject selectedFightBackground3;
+
+    public RectTransform moneyPanelButton;
+
+    public Button loanButton1;
+    public Button loanButton2;
+    public Button loanButton3;
+    public GameObject selectedLoanBackground1;
+    public GameObject selectedLoanBackground2;
+    public GameObject selectedLoanBackground3;
 
     public static int selectedFight = -1;
 
@@ -123,6 +140,10 @@ public class UIManager : MonoBehaviour
         RobotStatsButtonClick();
         ResetFightUI();
         ResetLoanUI();
+        fightPanel.SetActive(false);
+        moneyPanel.SetActive(true);
+
+        moneyPanelButton.SetAsLastSibling();
     }
 
     // Main panel functions
@@ -200,6 +221,7 @@ public class UIManager : MonoBehaviour
         challengeText3.color = challengeTextBaseColor;
 
         selectedFight = 0;
+        startFightButton.interactable = true;
     }
     public void Fight2Click()
     {
@@ -212,6 +234,7 @@ public class UIManager : MonoBehaviour
         challengeText3.color = challengeTextBaseColor;
 
         selectedFight = 1;
+        startFightButton.interactable = true;
     }
     public void Fight3Click()
     {
@@ -224,6 +247,7 @@ public class UIManager : MonoBehaviour
         challengeText3.color = challengeTextHighlightedColor;
 
         selectedFight = 2;
+        startFightButton.interactable = true;
     }
 
     public void ResetFightUI()
@@ -237,6 +261,12 @@ public class UIManager : MonoBehaviour
         challengeText3.color = challengeTextBaseColor;
 
         selectedFight = -1;
+        startFightButton.interactable = false;
+        startFightButton.transform.parent.gameObject.SetActive(false);
+
+        selectedFightBackground1.SetActive(false);
+        selectedFightBackground2.SetActive(false);
+        selectedFightBackground3.SetActive(false);
     }
 
     // Loan click functions
@@ -273,9 +303,17 @@ public class UIManager : MonoBehaviour
         loanBackground2.color = loanBackgroundBaseColor;
         loanText2.color = loanTextBaseColor;
         loanText2.text = "Take";
-        loanBackground2.color = loanBackgroundBaseColor;
-        loanText2.color = loanTextBaseColor;
-        loanText2.text = "Take";
+        loanBackground3.color = loanBackgroundBaseColor;
+        loanText3.color = loanTextBaseColor;
+        loanText3.text = "Take";
+
+        selectedLoanBackground1.SetActive(false);
+        selectedLoanBackground2.SetActive(false);
+        selectedLoanBackground3.SetActive(false);
+
+        loanButton1.interactable = true;
+        loanButton2.interactable = true;
+        loanButton3.interactable = true;
     }
 
 }

@@ -30,6 +30,7 @@ public class UpgradeManager : MonoBehaviour
         dmgUpgradeLevel = 0;
         defUpgradeLevel = 0;
         skillUpgradeLevel = 0;
+
         obsUpgradeLevel = 0;
     }
 
