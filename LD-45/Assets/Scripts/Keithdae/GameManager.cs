@@ -93,7 +93,9 @@ public class GameManager : MonoBehaviour
 
         playerRobot.hp = playerRobot.maxHp;
         fightManager.opponent.hp = fightManager.opponent.maxHp;
+
         fightManager.ResetHealthBars();
+        fightManager.UpdateProbaUI();
 
         preparationPhaseUI.SetActive(false);
         preparationBackground.SetActive(false);

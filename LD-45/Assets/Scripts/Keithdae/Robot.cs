@@ -49,19 +49,19 @@ public class Robot : MonoBehaviour
                 thresholdProjectile = 33.3f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
                 break;
             case RobotBehaviourType.AttackHeavy:
-                thresholdAttack = 60f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
-                thresholdGuard = 20f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
-                thresholdProjectile = 20f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
+                thresholdAttack = 70f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
+                thresholdGuard = 15f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
+                thresholdProjectile = 15f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
                 break;
             case RobotBehaviourType.GuardHeavy:
-                thresholdAttack = 20f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
-                thresholdGuard = 60f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
-                thresholdProjectile = 20f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
+                thresholdAttack = 15f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
+                thresholdGuard = 70f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
+                thresholdProjectile = 15f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
                 break;
             case RobotBehaviourType.ProjectileHeavy:
-                thresholdAttack = 20f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
-                thresholdGuard = 20f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
-                thresholdProjectile = 60f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
+                thresholdAttack = 15f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
+                thresholdGuard = 15f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
+                thresholdProjectile = 70f + Random.Range(0f, 11f + randomRand) - 5f - randomRand;
                 break;
 
             default:
@@ -93,6 +93,24 @@ public class Robot : MonoBehaviour
         if (thresholdProjectile > highestThreshold)
             highestThreshold = thresholdProjectile;
         return highestThreshold * 100 / (thresholdAttack + thresholdGuard + thresholdProjectile);
+    }
+
+    // 0 => atk / 1 => guard / 2 => proj
+    public int GetHighestProbaMove()
+    {
+        int hpm = 0;
+        float highestThreshold = thresholdAttack;
+        if (thresholdGuard > highestThreshold)
+        {
+            highestThreshold = thresholdGuard;
+            hpm = 1;
+        }
+        if (thresholdProjectile > highestThreshold)
+        {
+            highestThreshold = thresholdProjectile;
+            hpm = 2;
+        }
+        return hpm;
     }
 
     public FightManager.MoveType ChoseMove()
