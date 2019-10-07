@@ -26,6 +26,6 @@ public class SelectRobot : MonoBehaviour
     {
         choosePanel.SetActive(false);
         mainMenu.SetActive(true);
-        GameManager._instance.RobotModel = robotVal;
+        GameManager._instance.SetRobotModel(robotVal);
     }
 }

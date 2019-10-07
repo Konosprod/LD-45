@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Fader : MonoBehaviour
-{
+public class Fader : MonoBehaviour {
 
     public float fadeTime;
     public Image toFade;
@@ -17,64 +16,22 @@ public class Fader : MonoBehaviour
     private int currentSlide = 0;
     private float elaspedTime;
 
-    public Image ownFade;
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void StartFadetoScene(string name)
-    {
-        StartCoroutine(FadeToScene(name));
-    }
-
-    public void StartIntro()
-    {
-        StartCoroutine(fadeIntro());
-    }
-
-    private IEnumerator FadeToScene(string sceneName)
-    {
-        elaspedTime = 0;
-        ownFade.gameObject.SetActive(true);
-
-        while (elaspedTime < fadeTime)
-        {
-            /*
-                float percentage = elaspedTime / fadeTime;
-                ownFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, Mathf.Lerp(1, 0, percentage));
-            */
-            float percentage = elaspedTime / fadeTime;
-            ownFade.color = new Color(ownFade.color.r, ownFade.color.g, ownFade.color.b, Mathf.Lerp(0, 01, percentage));
-
-
-            elaspedTime += Time.deltaTime;
-
-            yield return null;
-        }
-
-        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
-    }
-
-    private IEnumerator fadeIntro()
-    {
-        while (currentSlide < slides.Length)
+	// Use this for initialization
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        if (currentSlide < slides.Length)
         {
             if (elaspedTime >= fadeTime)
             {
-                if (!fadeOut && !fadeIn)
+                if(!fadeOut && !fadeIn)
                 {
                     fadeOut = true;
                 }
-                else if (fadeOut && !fadeIn)
+                else if(fadeOut && !fadeIn)
                 {
                     fadeIn = true;
                 }
@@ -85,19 +42,19 @@ public class Fader : MonoBehaviour
                 elaspedTime += Time.deltaTime;
             }
 
-            if (!fadeOut)
+            if(!fadeOut)
             {
                 float percentage = elaspedTime / fadeTime;
                 //Debug.Log(Mathf.Lerp(1, 0, percentage));
                 toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, Mathf.Lerp(1, 0, percentage));
             }
-            else if (!fadeIn)
+            else if(!fadeIn)
             {
                 float percentage = elaspedTime / fadeTime;
                 toFade.color = new Color(toFade.color.r, toFade.color.g, toFade.color.b, Mathf.Lerp(0, 01, percentage));
             }
 
-            if (fadeIn && fadeOut)
+            if(fadeIn && fadeOut)
             {
                 fadeIn = false;
                 fadeOut = false;
@@ -105,10 +62,10 @@ public class Fader : MonoBehaviour
                 slides[currentSlide].gameObject.SetActive(false);
                 currentSlide++;
             }
-
-            yield return null;
         }
-
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-    }
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Game");
+        }
+	}
 }

@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     // UI
     [Header("Robot stats")]
+    public List<Sprite> sprites;
+    public Image RobotPreview;
     public TextMeshProUGUI hpRobotStatText;
     public TextMeshProUGUI dmgRobotStatText;
     public TextMeshProUGUI defRobotStatText;
@@ -124,6 +126,18 @@ public class GameManager : MonoBehaviour
         UpdateDefRobotStatText();
         UpdateSklRobotStatText();
         UpdatePwrRobotStatText();
+    }
+
+    public void SetRobotModel(string s)
+    {
+        RobotModel = s;
+        UpdateRobotPreview();
+    }
+
+    public void UpdateRobotPreview()
+    {
+        RobotPreview.sprite =  sprites[int.Parse(RobotModel.Substring(RobotModel.Length - 2))-1];
+        //RobotPreview.sprite = RobotModel.Split(['-'])
     }
 
     public void UpdateHpRobotStatText()

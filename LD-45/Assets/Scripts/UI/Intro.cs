@@ -8,7 +8,7 @@ public class Intro : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        fader.StartIntro();
+        //fader.StartIntro();
 	}
 	
 }
